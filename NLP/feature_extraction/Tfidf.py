@@ -3,8 +3,7 @@ from operator import concat
 from collections import Counter
 from typing import List
 import math
-
-from sklearn.feature_extraction.text import TfidfVectorizer
+import pprint
 
 
 class Tfidf:
@@ -23,9 +22,9 @@ class Tfidf:
             collections.Counter
         """
         return (
-            Counter(sorted(document))
+            Counter(document)
             if document is not None
-            else Counter(sorted(self.flattened_word_list))
+            else Counter(self.flattened_word_list)
         )
 
     def unique_words(self) -> List[str]:
@@ -48,15 +47,15 @@ class Tfidf:
     def compute_idf(self):
         idf_dict = {}
 
-        N = self._total_count(unique=False)
+        N = len(self.word_list)
 
         for word in self.flattened_word_list:
             count = 0
-            for document in self.corpus:
+            for document in self.word_list:
                 if word in document:
                     count += 1
 
-            idf_dict[word] = math.log(N / (count + 1))
+            idf_dict[word] = math.log(N / count)
 
         return idf_dict
 
@@ -65,13 +64,24 @@ class Tfidf:
         tf = self.compute_tf()
         idf = self.compute_idf()
 
-        tfidf = [
-            [0] * self._total_count(unique=True) for _ in range(len(self.word_list))
-        ]
+        tfidf = {}
 
         for i, words in enumerate(self.word_list):
             for j, word in enumerate(self.unique_words()):
-                tfidf[i][j] = tf[word] * idf[word]
+                tfidf[word] = round(tf[word] * idf[word], 2)
+
+        return tfidf
+
+    def transform(self):
+        tfidf_dict = self.compute_tfidf()
+
+        tfidf = []
+
+        for words in self.word_list:
+            t = []
+            for word in words:
+                t.append(tfidf_dict[word])
+            tfidf.append(t)
 
         return tfidf
 
@@ -84,10 +94,6 @@ if __name__ == "__main__":
         "is this the first document here",
     ]
 
-    tfidf_sklearn = TfidfVectorizer()
-
-    print(tfidf_sklearn.fit_transform(corpus))
-
     tfidf = Tfidf(corpus=corpus)
 
-    print(tfidf.compute_tfidf()[0])
+    print(tfidf.transform())
