@@ -9,7 +9,8 @@ import pprint
 class Tfidf:
     def __init__(self, corpus: List[str]):
         self.corpus: List[str] = corpus
-        self.word_list: List[List[str]] = list(map(lambda x: x.split(), self.corpus))
+        self.word_list: List[List[str]] = list(
+            map(lambda x: x.split(), self.corpus))
         self.flattened_word_list: List[str] = reduce(concat, self.word_list)
 
     def _word_frequency(self, document: List[str] = None) -> Counter:
@@ -32,7 +33,8 @@ class Tfidf:
 
     def _total_count(self, unique: bool = True) -> int:
         return (
-            len(self.unique_words()) if unique else sum(self._word_frequency().values())
+            len(self.unique_words()) if unique else sum(
+                self._word_frequency().values())
         )
 
     def compute_tf(self, word: str, document: List[str] = None) -> float:
