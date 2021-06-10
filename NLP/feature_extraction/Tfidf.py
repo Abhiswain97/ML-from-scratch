@@ -39,14 +39,10 @@ class Tfidf:
                 self._word_frequency().values())
         )
 
-    def compute_tf(self):
+    def compute_tf(self, word, document):
         tf_dict = {}
-        for words in self.word_list:
-            count = self._word_frequency(document=words)
-            for word in words:
-                tf_dict[word] = count[word] / sum(count.values())
-
-        return tf_dict
+        count = self._word_frequency(document=document)
+        return count[word] / sum(count.values())
 
     def compute_idf(self):
         idf_dict = {}
@@ -65,26 +61,27 @@ class Tfidf:
 
     def compute_tfidf(self):
 
-        tf = self.compute_tf()
         idf = self.compute_idf()
 
         tfidf = {}
 
         for i, words in enumerate(self.word_list):
             for j, word in enumerate(self.unique_words()):
-                tfidf[word] = round(tf[word] * idf[word], 2)
+                tfidf[word, i] = round(
+                    self.compute_tf(word=word, document=words) * idf[word], 2
+                )
 
         return tfidf
 
     def transform(self):
-        tfidf_dict = self.compute_tfidf()
+        tfidf_dict_tuple = self.compute_tfidf()
 
         tfidf = []
 
-        for words in self.word_list:
+        for i, words in enumerate(self.word_list):
             t = []
             for word in words:
-                t.append(tfidf_dict[word])
+                t.append(tfidf_dict_tuple[word, i])
             tfidf.append(t)
 
         return tfidf
