@@ -1,21 +1,18 @@
 from functools import reduce
 from operator import concat
 from collections import Counter
-from typing import List
+from typing import Dict, List, Optional, Tuple
 import math
 import pprint
-
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 class Tfidf:
     def __init__(self, corpus: List[str]):
         self.corpus: List[str] = corpus
-        self.word_list: List[List[str]] = list(
-            map(lambda x: x.split(), self.corpus))
+        self.word_list: List[List[str]] = list(map(lambda x: x.split(), self.corpus))
         self.flattened_word_list: List[str] = reduce(concat, self.word_list)
 
-    def _word_frequency(self, document: str = None) -> Counter:
+    def _word_frequency(self, document: List[str] = None) -> Counter:
         """
         Calculates the word frequency.
         If document=None, then it creates a Counter dict of all the words in the corpus
@@ -35,16 +32,14 @@ class Tfidf:
 
     def _total_count(self, unique: bool = True) -> int:
         return (
-            len(self.unique_words()) if unique else sum(
-                self._word_frequency().values())
+            len(self.unique_words()) if unique else sum(self._word_frequency().values())
         )
 
-    def compute_tf(self, word, document):
-        tf_dict = {}
+    def compute_tf(self, word: str, document: List[str] = None) -> float:
         count = self._word_frequency(document=document)
         return count[word] / sum(count.values())
 
-    def compute_idf(self):
+    def compute_idf(self) -> Dict[str, float]:
         idf_dict = {}
 
         N = len(self.word_list)
@@ -59,7 +54,7 @@ class Tfidf:
 
         return idf_dict
 
-    def compute_tfidf(self):
+    def compute_tfidf(self) -> Dict[Tuple[(str, int)], float]:
 
         idf = self.compute_idf()
 
@@ -94,10 +89,6 @@ if __name__ == "__main__":
         "and this is the third one",
         "is this the first document here",
     ]
-
-    tfidf_sklearn = TfidfVectorizer()
-
-    # print(tfidf_sklearn.fit_transform(corpus))
 
     tfidf = Tfidf(corpus=corpus)
 
