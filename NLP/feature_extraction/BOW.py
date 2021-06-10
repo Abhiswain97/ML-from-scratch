@@ -7,14 +7,15 @@ from operator import concat
 class BagOfWords:
     def __init__(self, corpus: List[str]):
         self.corpus: List[str] = corpus
-        self.word_list: List[List[str]] = list(map(lambda x: x.split(), self.corpus))
+        self.word_list: List[List[str]] = list(
+            map(lambda x: x.split(), self.corpus))
         self.flattened_word_list: List[str] = reduce(concat, self.word_list)
 
     def _word_frequency(self, document: str = None) -> Counter:
         """
         Calculates the word frequency.
-        If document=None, then it creates a Counter dict of all the words in the document
-        else it just gives count in the current document
+        If document=None, then it creates a Counter dict of all the words in the corpus
+        else it just gives count in the current sentence(document)
 
         returns:
             collections.Counter
@@ -30,7 +31,8 @@ class BagOfWords:
 
     def _total_count(self, unique: bool = True) -> int:
         return (
-            len(self.unique_words()) if unique else sum(self._word_frequency().values())
+            len(self.unique_words()) if unique else sum(
+                self._word_frequency().values())
         )
 
     def make_BoW(self, binary=False):

@@ -7,7 +7,7 @@ BLACK = C:\Users\abhi0\anaconda3\envs\abhishek\Scripts\black
 all: format type_check run
 
 format:
-	@echo Formatting the source file with black...
+	@echo Formatting ${FNAME} with black...
 	${BLACK} ${FNAME}
 	@echo.
 
