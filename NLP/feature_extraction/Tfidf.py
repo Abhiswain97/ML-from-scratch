@@ -56,22 +56,30 @@ class Tfidf:
 
         return idf_dict
 
-    def compute_tfidf(self) -> Dict[Tuple[(str, int)], float]:
+    def compute_tfidf(
+        self, rounding_factor: int = 2
+    ) -> Tuple[Dict[Tuple[str, int], float], List[List[int]]]:
 
         idf = self.compute_idf()
 
         tfidf = {}
+        tfidf_vec = [
+            [0] * self._total_count(unique=True) for _ in range(len(self.word_list))
+        ]
 
         for i, words in enumerate(self.word_list):
             for j, word in enumerate(self.unique_words()):
-                tfidf[word, i] = round(
-                    self.compute_tf(word=word, document=words) * idf[word], 2
+                value = round(
+                    self.compute_tf(word=word, document=words) * idf[word],
+                    rounding_factor,
                 )
+                tfidf[word, i] = value
+                tfidf_vec[i][j] = value  # type: ignore
 
-        return tfidf
+        return tfidf, tfidf_vec
 
     def transform(self):
-        tfidf_dict_tuple = self.compute_tfidf()
+        tfidf_dict_tuple, tfidf_vec = self.compute_tfidf()
 
         tfidf = []
 
@@ -94,4 +102,5 @@ if __name__ == "__main__":
 
     tfidf = Tfidf(corpus=corpus)
 
-    print(tfidf.transform())
+    pprint.pprint(tfidf.compute_tfidf())
+    pprint.pprint(tfidf.transform())

@@ -1,5 +1,5 @@
 from collections import Counter
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from functools import reduce
 from operator import concat
 
@@ -7,7 +7,8 @@ from operator import concat
 class BagOfWords:
     def __init__(self, corpus: List[str]):
         self.corpus: List[str] = corpus
-        self.word_list: List[List[str]] = list(map(lambda x: x.split(), self.corpus))
+        self.word_list: List[List[str]] = list(
+            map(lambda x: x.split(), self.corpus))
         self.flattened_word_list: List[str] = reduce(
             concat, self.word_list  # type: ignore
         )
@@ -32,7 +33,8 @@ class BagOfWords:
 
     def _total_count(self, unique: bool = True) -> int:
         return (
-            len(self.unique_words()) if unique else sum(self._word_frequency().values())
+            len(self.unique_words()) if unique else sum(
+                self._word_frequency().values())
         )
 
     def make_BoW(self, binary: bool = False) -> List[List[int]]:
@@ -58,7 +60,6 @@ if __name__ == "__main__":
         "this document is the second document",
         "and this is the third one",
         "is this the first document here",
-        "My name is Abhishek",
     ]
 
     bow = BagOfWords(corpus)
@@ -67,4 +68,4 @@ if __name__ == "__main__":
     print(bow._total_count(unique=True))
     print(bow.flattened_word_list)
     print(bow.unique_words())
-    print(bow.make_BoW(binary=True))
+    print(bow.make_BoW(binary=False))
