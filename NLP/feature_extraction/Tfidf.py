@@ -1,17 +1,19 @@
 from functools import reduce
 from operator import concat
 from collections import Counter
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 import math
 import pprint
 
 
 class Tfidf:
-    def __init__(self, corpus: List[str]):
-        self.corpus: List[str] = corpus
+    def __init__(self, corpus: Union[List[str], str]):
+        self.corpus: Union[List[str], str] = corpus.split(".") if not isinstance(
+            corpus, list
+        ) else self.corpus
         self.word_list: List[List[str]] = list(
             map(lambda x: x.split(), self.corpus)  # type: ignore
-        ) if not isinstance(self.corpus, list) else self.corpus
+        )
         self.flattened_word_list: List[str] = reduce(
             concat, self.word_list  # type: ignore  # https://github.com/python/mypy/issues/4673
         )
@@ -21,6 +23,9 @@ class Tfidf:
         Calculates the word frequency.
         If document=None, then it creates a Counter dict of all the words in the corpus
         else it just gives count in the current sentence(document)
+
+        args:
+            document: str -> an individual document(sentence) of the corpus
 
         returns:
             collections.Counter
@@ -39,9 +44,14 @@ class Tfidf:
             len(self.unique_words()) if unique else sum(self._word_frequency().values())
         )
 
-    def compute_tf(self, word: str, document: List[str] = None) -> float:
+    def compute_tf(
+        self, word: str, document: List[str] = None, smoothing: bool = True
+    ) -> float:
         count = self._word_frequency(document=document)
-        return (count[word]) / (sum(count.values()))
+        if smoothing:
+            return (count[word] + 1) / (sum(count.values()) + 1)
+        else:
+            return (count[word]) / (sum(count.values()))
 
     def compute_idf(self) -> Dict[str, float]:
         idf_dict = {}
@@ -61,6 +71,16 @@ class Tfidf:
     def compute_tfidf(
         self, rounding_factor: int = 2
     ) -> Tuple[Dict[Tuple[str, int], float], List[List[int]]]:
+        """
+        args:
+            rounding_factor: int -> How much to round the tfidf values
+
+        returns:
+            tfidf: Dict -> A dictionary of tuples as keys and tfidf values as values.
+                           Each tuple contains: (word, it's document index) 
+            tfidf_vec: List[List[float]] -> The TFIDF vector
+
+        """
 
         idf = self.compute_idf()
 
@@ -122,7 +142,7 @@ if __name__ == "__main__":
     Maecenas convallis magna ac suscipit tincidunt. Nulla fermentum dictum mauris nec aliquam.
     """
 
-    tfidf = Tfidf(corpus=corpus)
+    tfidf = Tfidf(corpus=corpus3)
 
-    pprint.pprint(tfidf.compute_tfidf())
-    pprint.pprint(tfidf.transform())
+    print(tfidf.compute_tfidf())
+    # pprint.pprint(tfidf.transform())
