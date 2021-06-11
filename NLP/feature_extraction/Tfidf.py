@@ -11,7 +11,7 @@ class Tfidf:
         self.corpus: List[str] = corpus
         self.word_list: List[List[str]] = list(map(lambda x: x.split(), self.corpus))
         self.flattened_word_list: List[str] = reduce(
-            concat, self.word_list  # type: ignore
+            concat, self.word_list  # type: ignore  # https://github.com/python/mypy/issues/4673
         )
 
     def _word_frequency(self, document: List[str] = None) -> Counter:
@@ -39,7 +39,7 @@ class Tfidf:
 
     def compute_tf(self, word: str, document: List[str] = None) -> float:
         count = self._word_frequency(document=document)
-        return count[word] / sum(count.values())
+        return (count[word]) / (sum(count.values()))
 
     def compute_idf(self) -> Dict[str, float]:
         idf_dict = {}
@@ -99,6 +99,15 @@ if __name__ == "__main__":
         "and this is the third one",
         "is this the first document here",
     ]
+
+    corpus2 = """
+    TF-IDF (term frequency-inverse document frequency) was invented for document search and information retrieval.
+    It works by increasing proportionally to the number of times a word appears in a document,
+    but is offset by the number of documents that contain the word.
+    So, words that are common in every document, such as this,
+    what, and if, rank low even though they may appear many times,
+    since they don’t mean much to that document in particular.
+    """
 
     tfidf = Tfidf(corpus=corpus)
 

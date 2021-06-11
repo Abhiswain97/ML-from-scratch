@@ -7,10 +7,9 @@ from operator import concat
 class BagOfWords:
     def __init__(self, corpus: List[str]):
         self.corpus: List[str] = corpus
-        self.word_list: List[List[str]] = list(
-            map(lambda x: x.split(), self.corpus))
+        self.word_list: List[List[str]] = list(map(lambda x: x.split(), self.corpus))
         self.flattened_word_list: List[str] = reduce(
-            concat, self.word_list  # type: ignore
+            concat, self.word_list  # type: ignore  # https://github.com/python/mypy/issues/4673
         )
 
     def _word_frequency(self, document: List[str] = None) -> Counter:
@@ -33,8 +32,7 @@ class BagOfWords:
 
     def _total_count(self, unique: bool = True) -> int:
         return (
-            len(self.unique_words()) if unique else sum(
-                self._word_frequency().values())
+            len(self.unique_words()) if unique else sum(self._word_frequency().values())
         )
 
     def make_BoW(self, binary: bool = False) -> List[List[int]]:
