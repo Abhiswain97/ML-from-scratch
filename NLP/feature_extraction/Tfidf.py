@@ -9,7 +9,9 @@ import pprint
 class Tfidf:
     def __init__(self, corpus: List[str]):
         self.corpus: List[str] = corpus
-        self.word_list: List[List[str]] = list(map(lambda x: x.split(), self.corpus))
+        self.word_list: List[List[str]] = list(
+            map(lambda x: x.split(), self.corpus)  # type: ignore
+        ) if not isinstance(self.corpus, list) else self.corpus
         self.flattened_word_list: List[str] = reduce(
             concat, self.word_list  # type: ignore  # https://github.com/python/mypy/issues/4673
         )
@@ -78,7 +80,7 @@ class Tfidf:
 
         return tfidf, tfidf_vec
 
-    def transform(self):
+    def transform(self) -> List[List[float]]:
         tfidf_dict_tuple, tfidf_vec = self.compute_tfidf()
 
         tfidf = []
@@ -107,6 +109,17 @@ if __name__ == "__main__":
     So, words that are common in every document, such as this,
     what, and if, rank low even though they may appear many times,
     since they don’t mean much to that document in particular.
+    """
+
+    corpus3 = """
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Etiam semper purus ut nisi eleifend dignissim in nec risus.
+    Quisque eget viverra quam. Ut dapibus est in odio feugiat volutpat.
+    Vestibulum sit amet nisl risus. Phasellus consequat mollis est.
+    Donec dui ante, luctus a quam vel, ullamcorper bibendum mi.
+    Quisque semper ex vitae neque lobortis, vel lacinia ligula finibus.
+    Vivamus lacinia sem id sodales molestie.
+    Maecenas convallis magna ac suscipit tincidunt. Nulla fermentum dictum mauris nec aliquam.
     """
 
     tfidf = Tfidf(corpus=corpus)
