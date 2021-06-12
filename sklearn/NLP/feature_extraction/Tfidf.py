@@ -41,7 +41,7 @@ class Tfidf:
     def unique_words(self) -> List[str]:
         return list(sorted(self._word_frequency(document=None).keys()))
 
-    def _total_count(self, unique: bool = True) -> int:
+    def _count(self, unique: bool = True) -> int:
         return (
             len(self.unique_words()) if unique else sum(self._word_frequency().values())
         )
@@ -76,9 +76,7 @@ class Tfidf:
         idf = self.compute_idf()
 
         tfidf = {}
-        tfidf_vec = [
-            [0] * self._total_count(unique=True) for _ in range(len(self.word_list))
-        ]
+        tfidf_vec = [[0] * self._count(unique=True) for _ in range(len(self.word_list))]
 
         rows, columns, values = [], [], []
 
@@ -96,7 +94,7 @@ class Tfidf:
         return normalize(
             csr_matrix(
                 (values, (rows, columns)),
-                shape=(len(self.word_list), self._total_count(unique=True)),
+                shape=(len(self.word_list), self._count(unique=True)),
             )
         )
 
@@ -133,7 +131,7 @@ if __name__ == "__main__":
 
     tfidf = Tfidf(corpus=corpus)
 
-    print(tfidf._total_count(unique=True))
+    print(tfidf._count(unique=True))
     print(tfidf.compute_tfidf())
 
     print("=" * 50)

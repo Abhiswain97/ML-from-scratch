@@ -79,7 +79,6 @@ class Tfidf:
             tfidf: Dict -> A dictionary of tuples as keys and tfidf values as values.
                            Each tuple contains: (word, it's document index)
             tfidf_vec: List[List[float]] -> The TFIDF vector
-
         """
 
         idf = self.compute_idf()
