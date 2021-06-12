@@ -5,9 +5,6 @@ from typing import Dict, List, Optional, Tuple, Union
 import math
 import pprint
 
-import multiprocessing
-from sklearn.feature_extraction.text import TfidfVectorizer  # type: ignore
-
 
 class Tfidf:
     def __init__(self, corpus: Union[List[str], str], num_workers: int = 0):
@@ -83,7 +80,7 @@ class Tfidf:
 
         idf = self.compute_idf()
 
-        tfidf = {}
+        tfidf_dict = {}
         tfidf_vec = [
             [0] * self._total_count(unique=True) for _ in range(len(self.word_list))
         ]
@@ -94,10 +91,10 @@ class Tfidf:
                     self.compute_tf(word=word, document=words) * idf[word],
                     rounding_factor,
                 )
-                tfidf[word, i] = value
+                tfidf_dict[word, i] = value
                 tfidf_vec[i][j] = value  # type: ignore
 
-        return tfidf, tfidf_vec
+        return tfidf_dict, tfidf_vec
 
     def transform(self, rounding_factor: int = 2) -> List[List[float]]:
         tfidf_dict_tuple, tfidf_vec = self.compute_tfidf(
@@ -134,9 +131,4 @@ if __name__ == "__main__":
 
     tfidf = Tfidf(corpus=corpus)
 
-    print(tfidf._total_count(unique=True))
     pprint.pprint(tfidf.transform())
-
-    # tfidf_sklearn = TfidfVectorizer(norm=None, smooth_idf=False)
-    # X = tfidf_sklearn.fit_transform(corpus)
-    # pprint.pprint(X.toarray())
