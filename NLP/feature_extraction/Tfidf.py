@@ -5,18 +5,21 @@ from typing import Dict, List, Optional, Tuple, Union
 import math
 import pprint
 
+import multiprocessing
+
 
 class Tfidf:
-    def __init__(self, corpus: Union[List[str], str]):
-        self.corpus: Union[List[str], str] = corpus.split(".") if not isinstance(
+    def __init__(self, corpus: Union[List[str], str], num_workers: int = 0):
+        self.corpus: List[str] = corpus.split(".") if not isinstance(
             corpus, list
-        ) else self.corpus
+        ) else corpus
         self.word_list: List[List[str]] = list(
             map(lambda x: x.split(), self.corpus)  # type: ignore
         )
         self.flattened_word_list: List[str] = reduce(
             concat, self.word_list  # type: ignore  # https://github.com/python/mypy/issues/4673
         )
+        self.num_workers: int = num_workers
 
     def _word_frequency(self, document: List[str] = None) -> Counter:
         """
@@ -41,19 +44,18 @@ class Tfidf:
 
     def _total_count(self, unique: bool = True) -> int:
         return (
-            len(self.unique_words()) if unique else sum(self._word_frequency().values())
+            len(self.unique_words()) if unique else sum(
+                self._word_frequency().values())
         )
 
     def compute_tf(
-        self, word: str, document: List[str] = None, smoothing: bool = True
+        self, word: str, document: List[str] = None
     ) -> float:
         count = self._word_frequency(document=document)
-        if smoothing:
-            return (count[word] + 1) / (sum(count.values()) + 1)
-        else:
-            return (count[word]) / (sum(count.values()))
 
-    def compute_idf(self) -> Dict[str, float]:
+        return count[word] / sum(count.values())
+
+    def compute_idf(self, smoothing: bool = True) -> Dict[str, float]:
         idf_dict = {}
 
         N = len(self.word_list)
@@ -77,7 +79,7 @@ class Tfidf:
 
         returns:
             tfidf: Dict -> A dictionary of tuples as keys and tfidf values as values.
-                           Each tuple contains: (word, it's document index) 
+                           Each tuple contains: (word, it's document index)
             tfidf_vec: List[List[float]] -> The TFIDF vector
 
         """
@@ -131,18 +133,7 @@ if __name__ == "__main__":
     since they don’t mean much to that document in particular.
     """
 
-    corpus3 = """
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Etiam semper purus ut nisi eleifend dignissim in nec risus.
-    Quisque eget viverra quam. Ut dapibus est in odio feugiat volutpat.
-    Vestibulum sit amet nisl risus. Phasellus consequat mollis est.
-    Donec dui ante, luctus a quam vel, ullamcorper bibendum mi.
-    Quisque semper ex vitae neque lobortis, vel lacinia ligula finibus.
-    Vivamus lacinia sem id sodales molestie.
-    Maecenas convallis magna ac suscipit tincidunt. Nulla fermentum dictum mauris nec aliquam.
-    """
+    tfidf = Tfidf(corpus=corpus)
 
-    tfidf = Tfidf(corpus=corpus3)
-
-    print(tfidf.compute_tfidf())
-    # pprint.pprint(tfidf.transform())
+    print(tfidf._total_count(unique=True))
+    pprint.pprint(tfidf.transform())
