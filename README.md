@@ -2,8 +2,8 @@
 
 Implementation of machine learning algorithms from scratch.
 
-There two implementations:
-    - implementation according to textbook formulae 
+There two implementations: \
+    - implementation according to textbook formulae \
     - implementation to replicate sklearn output (In the [sklearn](sklearn) folder)
 
 ## Contents
