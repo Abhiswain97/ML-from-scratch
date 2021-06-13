@@ -34,3 +34,9 @@ cd ML-from-scratch
 - Run it, `docker run -p 8501:8501 -t my-app`
 
 - Now just open a browser, it's available on http://localhost:8501/
+
+You should see this!
+
+<p align="center">
+  <img src="txt_ext.gif">
+</p>
