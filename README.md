@@ -15,21 +15,19 @@ There two implementations:
 
 ## How to run
 
-### Locally
+Clone the repo:
+```
+git clone https://github.com/Abhiswain97/ML-from-scratch.git
+cd ML-from-scratch
+```
 
-- Clone the repo: `git clone https://github.com/Abhiswain97/ML-from-scratch.git`
+### Locally
 
 - Install requirements: `pip install -r requirements.txt`
 
 - Do, `streamlit run app.py`
 
 ### Using Docker
-
-- Clone the repo: 
-    ```
-    git clone https://github.com/Abhiswain97/ML-from-scratch.git
-    cd ML-from-scratch
-    ```
 
 - Do, `docker build -f DockerFile -t my-app .`
 
