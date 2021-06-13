@@ -50,7 +50,7 @@ else:
 
     csv = df.to_csv(index=False)
 
-# From: https://discuss.streamlit.io/t/how-to-add-a-download-excel-csv-function-to-a-button/4474
-b64 = base64.b64encode(csv.encode()).decode()
-linko = f'<center><a href="data:file/csv;base64,{b64}" download="myfilename.csv">Download as CSV file</a></center>'
-st.markdown(linko, unsafe_allow_html=True)
+    # From: https://discuss.streamlit.io/t/how-to-add-a-download-excel-csv-function-to-a-button/4474
+    b64 = base64.b64encode(csv.encode()).decode()
+    linko = f'<center><a href="data:file/csv;base64,{b64}" download="myfilename.csv">Download as CSV file</a></center>'
+    st.markdown(linko, unsafe_allow_html=True)
