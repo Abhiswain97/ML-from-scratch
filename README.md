@@ -17,11 +17,6 @@ There two implementations:
 
 - Clone the repo: `git clone https://github.com/Abhiswain97/ML-from-scratch.git`
 
-### For running the examples in the `sklearn` folder:
+- Install requirements: `pip install -r requirements.txt`
 
-- Install the requirements: `pip install -r sklearn\requirements.txt`
-- Run, the code: `python sklearn\<path to .py file>`
-    
-### For running other examples:
-
-- Just do, `python <path to .py file>`
+- Do, `streamlit run app.py`

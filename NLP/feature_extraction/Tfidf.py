@@ -4,20 +4,18 @@ from collections import Counter
 from typing import Dict, List, Optional, Tuple, Union
 import math
 import pprint
+import string
 
 
 class Tfidf:
-    def __init__(self, corpus: Union[List[str], str], num_workers: int = 0):
-        self.corpus: List[str] = corpus.split(".") if not isinstance(
-            corpus, list
-        ) else corpus
+    def __init__(self, corpus: Union[List[str], str]):
+        self.corpus: List[str] = corpus
         self.word_list: List[List[str]] = list(
             map(lambda x: x.split(), self.corpus)  # type: ignore
         )
         self.flattened_word_list: List[str] = reduce(
             concat, self.word_list  # type: ignore  # https://github.com/python/mypy/issues/4673
         )
-        self.num_workers: int = num_workers
 
     def _word_frequency(self, document: List[str] = None) -> Counter:
         """

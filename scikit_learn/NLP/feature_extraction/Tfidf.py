@@ -9,16 +9,14 @@ from sklearn.preprocessing import normalize  # type: ignore
 
 
 class Tfidf:
-    def __init__(self, corpus: Union[List[str], str]):
-        self.corpus: List[str] = corpus.split(".") if not isinstance(
-            corpus, list
-        ) else corpus
+    def __init__(self, corpus: List[str]):
+        self.corpus: List[str] = corpus
         self.word_list: List[List[str]] = list(
             map(lambda x: x.split(), self.corpus)  # type: ignore
         )
+        # type: ignore  # https://github.com/python/mypy/issues/4673)
         self.flattened_word_list: List[str] = reduce(
-            concat, self.word_list  # type: ignore  # https://github.com/python/mypy/issues/4673
-        )
+            concat, self.word_list, [])
 
     def _word_frequency(self, document: List[str] = None) -> Counter:
         """
@@ -43,7 +41,8 @@ class Tfidf:
 
     def _count(self, unique: bool = True) -> int:
         return (
-            len(self.unique_words()) if unique else sum(self._word_frequency().values())
+            len(self.unique_words()) if unique else sum(
+                self._word_frequency().values())
         )
 
     def compute_tf(self, word: str, document: List[str] = None) -> float:
@@ -65,7 +64,7 @@ class Tfidf:
             idf_dict[word] = 1 + math.log((N + 1) / (count + 1))
         return idf_dict
 
-    def compute_tfidf(self) -> csr_matrix:
+    def compute_tfidf(self):
         """
         Computes the tfidf for the corpus
 
@@ -76,7 +75,8 @@ class Tfidf:
         idf = self.compute_idf()
 
         tfidf = {}
-        tfidf_vec = [[0] * self._count(unique=True) for _ in range(len(self.word_list))]
+        tfidf_vec = [[0] * self._count(unique=True)
+                     for _ in range(len(self.word_list))]
 
         rows, columns, values = [], [], []
 
@@ -120,22 +120,17 @@ if __name__ == "__main__":
         "is this the first document here",
     ]
 
-    corpus2 = """
-    TF-IDF (term frequency-inverse document frequency) was invented for document search and information retrieval.
-    It works by increasing proportionally to the number of times a word appears in a document,
-    but is offset by the number of documents that contain the word.
-    So, words that are common in every document, such as this,
-    what, and if, rank low even though they may appear many times,
-    since they don’t mean much to that document in particular.
+    corpus1 = """
+    This probabilistic interpretation in turn takes the same form as that of self-information. However, applying such information-theoretic notions to problems in information retrieval leads to problems when trying to define the appropriate event spaces for the required probability distributions: not only documents need to be taken into account, but also queries and terms.
     """
 
-    tfidf = Tfidf(corpus=corpus)
+    tfidf = Tfidf(corpus=corpus1)
 
     print(tfidf._count(unique=True))
     print(tfidf.compute_tfidf())
 
-    print("=" * 50)
+#     print("=" * 50)
 
-    tfidf_sklearn = TfidfVectorizer()
-    X = tfidf_sklearn.fit_transform(corpus)
-    print(X)
+    # tfidf_sklearn = TfidfVectorizer()
+    # X = tfidf_sklearn.fit_transform(corpus)
+    # print(X)
