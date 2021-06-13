@@ -2,3 +2,7 @@
 
 
 .vscode/
+
+NLP/feature_extraction/__pycache__/
+
+*.pyc

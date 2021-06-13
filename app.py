@@ -4,6 +4,7 @@ from NLP.feature_extraction.BOW import BagOfWords
 from NLP.text_processing.cleaner import clean_corpus
 import streamlit as st
 import pandas as pd
+import base64
 
 st.markdown("<h1 style='text-align: center;'>Text feature extractor</h1>",
             unsafe_allow_html=True)
@@ -19,8 +20,8 @@ if option == "Bag of Words":
         ("Binary", "Non binary"),
     )
 
-corpus = st.text_input('Enter paragraph', '',
-                       help='Enter your paragraph here')
+corpus = st.text_area('Enter paragraph', '',
+                      help='Enter your paragraph here')
 
 if not corpus:
     st.write("Enter some text!")
@@ -35,8 +36,6 @@ else:
 
         vec = tfidf.compute_tfidf().toarray()
 
-        df = pd.DataFrame(vec, columns=unq)
-
     else:
 
         bow = BagOfWords(cleaned_corpus)
@@ -45,6 +44,12 @@ else:
 
         unq = bow.unique_words()
 
-        df = pd.DataFrame(vec, columns=unq)
+    df = pd.DataFrame(vec, columns=unq)
 
     st.dataframe(data=df)
+
+# From: https://discuss.streamlit.io/t/how-to-add-a-download-excel-csv-function-to-a-button/4474
+csv = df.to_csv(index=False)
+b64 = base64.b64encode(csv.encode()).decode()
+linko = f'<center><a href="data:file/csv;base64,{b64}" download="myfilename.csv">Download as CSV file</a></center>'
+st.markdown(linko, unsafe_allow_html=True)
