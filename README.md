@@ -41,3 +41,5 @@ cd ML-from-scratch
 - Run it, `docker run -p 8501:8501 -t my-app`
 
 - Now just open a browser, it's available on http://localhost:8501/
+
+> Note: Simply closing the broswer doesn't stop the app. It's still running. You need to stop the docker container. For that open powershell or git bash and do, `docker kill <container-id>` (You can get the container ID by running `docker container ls`). Then do `docker container prune`. 
