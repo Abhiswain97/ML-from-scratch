@@ -9,17 +9,19 @@ st.markdown("<h1 style='text-align: center;'>Text feature extractor</h1>",
             unsafe_allow_html=True)
 
 option = st.selectbox(
-    "Select feature extract or",
+    "Select feature extractor",
     ("TFIDF", "Bag of Words"),
+    help="Select type of text feature extractor out of TFIDF or Bag of words"
 )
 
 if option == "Bag of Words":
     type_ = st.selectbox(
         "Select type of Bag of words",
         ("Binary", "Non binary"),
+        help="Select type of Bag of words"
     )
 
-corpus = st.text_area('Enter paragraph', '',
+corpus = st.text_area('Enter paragraph', 'Your text here!',
                       help='Enter your paragraph here')
 
 
