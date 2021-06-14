@@ -8,6 +8,8 @@ import base64
 st.markdown("<h1 style='text-align: center;'>Text feature extractor</h1>",
             unsafe_allow_html=True)
 
+text = "PythonAnywhere makes it easy to create and run Python programs in the cloud. You can write your programs in a web-based editor or just run a console session from any modern web browser. There's storage space on our servers, and you can preserve your session state and access it from anywhere, with no need to pay for, or configure, your own server. Start work on your work desktop, then later pick up from where you left off by accessing exactly the same session from your laptop."
+
 option = st.selectbox(
     "Select feature extractor",
     ("TFIDF", "Bag of Words"),
@@ -21,7 +23,7 @@ if option == "Bag of Words":
         help="Select type of Bag of words"
     )
 
-corpus = st.text_area('Enter paragraph', 'Your text here!',
+corpus = st.text_area('Enter paragraph', text,
                       help='Enter your paragraph here')
 
 
