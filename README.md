@@ -19,6 +19,8 @@ Currently available app: *Text feature extractor*
   <img src="txt_ext.gif">
 </p>
 
+It's now deployed on Heroku! [Check it out!](https://textfeaturextractor.herokuapp.com/)
+
 
 ## Running the app
 
