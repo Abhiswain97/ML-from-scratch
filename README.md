@@ -6,20 +6,22 @@ There two implementations:
 - implementation according to textbook formulae
 - implementation to replicate sklearn output (In the *sklearn* folder)
 
+## Web-app
+
+Currently available app: *Text feature extractor* 
+
+It's now deployed -> [Check it out!](https://textfeaturextractor.herokuapp.com/)
+
+<p align="center">
+  <img src="txt_ext.gif">
+</p>
+
 ## Contents
 
 - NLP
     - Feature extraction 
         - [Bag of words](https://github.com/Abhiswain97/ML-from-scratch/blob/master/NLP/feature_extraction/BOW.py) 
         - [TFIDF](https://github.com/Abhiswain97/ML-from-scratch/blob/master/NLP/feature_extraction/Tfidf.py) or [TFIDF-sklearn](https://github.com/Abhiswain97/ML-from-scratch/blob/master/sklearn/NLP/feature_extraction/Tfidf.py) 
-
-Currently available app: *Text feature extractor*
-
-<p align="center">
-  <img src="txt_ext.gif">
-</p>
-
-It's now deployed on Heroku! [Check it out!](https://textfeaturextractor.herokuapp.com/)
 
 
 ## Running the app
