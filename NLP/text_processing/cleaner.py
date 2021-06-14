@@ -14,6 +14,8 @@ def clean_corpus(corpus) -> List[str]:
     returns:
         sen_list: List[str] -> Cleaned corpus
     """
+
+    corpus = re.sub(re.compile('<.*?>'), '', corpus)
     corpus = corpus.split('.')
 
     sen_list = []
