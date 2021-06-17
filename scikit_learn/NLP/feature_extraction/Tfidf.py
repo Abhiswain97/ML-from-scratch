@@ -121,7 +121,10 @@ if __name__ == "__main__":
     ]
 
     corpus1 = """
-    This probabilistic interpretation in turn takes the same form as that of self-information. However, applying such information-theoretic notions to problems in information retrieval leads to problems when trying to define the appropriate event spaces for the required probability distributions: not only documents need to be taken into account, but also queries and terms.
+    This probabilistic interpretation in turn takes the same form as that of self-information. 
+    However, applying such information-theoretic notions to problems in information retrieval leads 
+    to problems when trying to define the appropriate event spaces for the required probability distributions: 
+    not only documents need to be taken into account, but also queries and terms.
     """
 
     tfidf = Tfidf(corpus=corpus1)
