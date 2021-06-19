@@ -2,56 +2,43 @@ from collections import Counter
 from typing import List, Optional, Tuple
 from functools import reduce
 from operator import concat
+import pprint
 
 
 class BagOfWords:
-    def __init__(self, corpus: List[str]):
+    def __init__(self, corpus: List[str], binary=False):
         self.corpus: List[str] = corpus
         self.word_list: List[List[str]] = list(
             map(lambda x: x.split(), self.corpus))
-        self.flattened_word_list: List[str] = reduce(
-            concat, self.word_list  # type: ignore  # https://github.com/python/mypy/issues/4673
-        )
-
-    def _word_frequency(self, document: List[str] = None) -> Counter:
-        """
-        Calculates the word frequency.
-        If document=None, then it creates a Counter dict of all the words in the corpus
-        else it just gives count in the current sentence(document)
-
-        returns:
-            collections.Counter
-        """
-        return (
-            Counter(sorted(document))
-            if document is not None
-            else Counter(sorted(self.flattened_word_list))
-        )
+        self.binary = binary
 
     def unique_words(self) -> List[str]:
-        return list(self._word_frequency(document=None).keys())
-
-    def _total_count(self, unique: bool = True) -> int:
-        return (
-            len(self.unique_words()) if unique else sum(
-                self._word_frequency().values())
+        return list(
+            Counter(
+                sorted(
+                    reduce(
+                        concat, self.word_list  # type: ignore
+                    )
+                )
+            ).keys()
         )
 
-    def make_BoW(self, binary: bool = False) -> List[List[int]]:
-        bow_vec = [
-            [0] * self._total_count(unique=True) for _ in range(len(self.corpus))
-        ]
+    def fit(self) -> List[List[int]]:
+        unique_words = self.unique_words()
 
-        for i, sen in enumerate(self.word_list):
-            count_dict = self._word_frequency(document=sen)
-            for j, word in enumerate(sen):
-                if binary:
-                    bow_vec[i][j] = 1 if word in count_dict.keys() else 0
-                    continue
+        bow_vector = []
+
+        for sentence in self.word_list:
+            sen_word_count = {}
+            for word in unique_words:
+                if self.binary:
+                    sen_word_count[word] = 1 if word in sentence else 0
                 else:
-                    bow_vec[i][j] = count_dict[word]
+                    sen_word_count[word] = sentence.count(word)
 
-        return bow_vec
+            bow_vector.append(list(sen_word_count.values()))
+
+        return bow_vector
 
 
 if __name__ == "__main__":
@@ -62,10 +49,9 @@ if __name__ == "__main__":
         "is this the first document here",
     ]
 
-    bow = BagOfWords(corpus)
+    bow = BagOfWords(corpus, binary=False)
 
-    print(bow._word_frequency())
-    print(bow._total_count(unique=True))
-    print(bow.flattened_word_list)
-    print(bow.unique_words())
-    print(bow.make_BoW(binary=False))
+    # sens = list(map(lambda x: Counter(x), list(
+    #     map(lambda x: x.split(), corpus))))
+
+    # pprint.pprint(sens)

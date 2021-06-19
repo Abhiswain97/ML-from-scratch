@@ -50,9 +50,10 @@ if st.button(f"Make {option} Features"):
 
         else:
 
-            bow = BagOfWords(cleaned_corpus)
+            bow = BagOfWords(
+                cleaned_corpus, binary=True if type_ == "Binary" else False)
 
-            vec = bow.make_BoW(binary=True if type_ == "Binary" else False)
+            vec = bow.fit()
 
             unq = bow.unique_words()
 
