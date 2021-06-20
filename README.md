@@ -52,6 +52,6 @@ cd ML-from-scratch
 
 - Have a C++ compiler like g++ or clang++. I use clang++.
 
-- Edit `Cpp\NLP\feature_extraction\test.txt`. Enter your required text here line-by-line. Currently, the code reads the sentences separated by newline.
+- Create a `.txt` file. Enter your required text here line-by-line. Currently, the code reads the sentences separated by newline.
 
-- Compile and run the code, `clang++ Cpp\NLP\feature_extraction\src\BOW.cpp && a.exe`
+- Run it, `Cpp\NLP\feature_extraction\binaries\bow.exe <path to your .txt file>`

@@ -133,7 +133,9 @@ int main(int argc, char const *argv[])
     //     "is this the first document here",
     // };
 
-    std::ifstream file("C:/Users/abhi0/Desktop/ML-from-scratch/Cpp/NLP/feature_extraction/test.txt");
+    std::string path = argv[1];
+
+    std::ifstream file(path.c_str());
 
     std::string line;
     std::vector<std::string> corpus1;
