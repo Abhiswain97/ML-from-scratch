@@ -13,15 +13,13 @@ class BagOfWords:
         self.binary = binary
 
     def unique_words(self) -> List[str]:
-        return list(
+        return sorted(list(
             Counter(
-                sorted(
-                    reduce(
-                        concat, self.word_list  # type: ignore
-                    )
+                reduce(
+                    concat, self.word_list  # type: ignore
                 )
             ).keys()
-        )
+        ))
 
     def fit(self) -> List[List[int]]:
         unique_words = self.unique_words()

@@ -1,6 +1,9 @@
-PYTHON = C:\Users\abhi0\anaconda3\python
-MYPY = C:\Users\abhi0\anaconda3\envs\abhishek\Scripts\mypy
-BLACK = C:\Users\abhi0\anaconda3\envs\abhishek\Scripts\black
+PYTHON := C:\Users\abhi0\anaconda3\python
+MYPY := C:\Users\abhi0\anaconda3\envs\abhishek\Scripts\mypy
+BLACK := C:\Users\abhi0\anaconda3\envs\abhishek\Scripts\black
+
+CC := g++
+FLAGS := -o
 
 .PHONY = format run 
 
@@ -20,3 +23,9 @@ run:
 	@echo Running ${FNAME}!
 	@echo.
 	${PYTHON} ${FNAME}
+
+create_lib: 
+	${CC} -c Cpp\NLP\feature_extraction\src\BOW.cpp
+
+test_cpp: 
+	${CC} ${FNAME}
