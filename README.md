@@ -40,7 +40,7 @@ cd ML-from-scratch
 
 ### Using Docker
 
-- Do, `docker build -f DockerFile -t my-app .`
+- Do, `docker build -f Docker-streamlit -t my-app .`
 
 - Run it, `docker run -p 8501:8501 -t my-app`
 
