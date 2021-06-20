@@ -8,6 +8,7 @@
 #include <cmath>
 #include <sstream>
 #include <set>
+#include <fstream>
 
 class BOW
 {

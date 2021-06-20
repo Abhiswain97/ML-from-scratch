@@ -126,14 +126,24 @@ std::vector<std::vector<int>> BOW::fit()
 
 int main(int argc, char const *argv[])
 {
-    std::vector<std::string> corpus = {
-        "this is the first document mostly",
-        "this document is the second document",
-        "and this is the third one",
-        "is this the first document here",
-    };
+    // std::vector<std::string> corpus = {
+    //     "this is the first document mostly",
+    //     "this document is the second document",
+    //     "and this is the third one",
+    //     "is this the first document here",
+    // };
 
-    BOW bow(corpus);
+    std::ifstream file("C:/Users/abhi0/Desktop/ML-from-scratch/Cpp/NLP/feature_extraction/test.txt");
+
+    std::string line;
+    std::vector<std::string> corpus1;
+
+    while (std::getline(file, line))
+    {
+        corpus1.push_back(line);
+    }
+
+    BOW bow(corpus1);
 
     auto bow_vector = bow.fit();
 

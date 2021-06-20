@@ -47,3 +47,11 @@ cd ML-from-scratch
 - Now just open a browser, it's available on http://localhost:8501/
 
 > Note: Incase you're running the app with docker, simply closing the broswer doesn't stop the app. It's still running. You need to stop the docker container. For that open powershell or git bash and do, `docker kill <container-id>` (You can get the container ID by running `docker container ls`). Then do `docker container prune`. 
+
+## Runnig the Cpp examples
+
+- Have a C++ compiler like g++ or clang++. I use clang++.
+
+- Edit `Cpp\NLP\feature_extraction\test.txt`. Enter your required text here line-by-line. Currently, the code reads the sentences separated by newline.
+
+- Compile and run the code, `clang++ Cpp\NLP\feature_extraction\src\BOW.cpp && a.exe`
