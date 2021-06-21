@@ -48,7 +48,7 @@ cd ML-from-scratch
 
 > Note: Incase you're running the app with docker, simply closing the broswer doesn't stop the app. It's still running. You need to stop the docker container. For that open powershell or git bash and do, `docker kill <container-id>` (You can get the container ID by running `docker container ls`). Then do `docker container prune`. 
 
-## Runnig the Cpp examples
+## Running the Cpp examples
 
 - Have a C++ compiler like g++ or clang++. I use clang++.
 
