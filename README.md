@@ -59,6 +59,6 @@ cd ML-from-scratch
 
 - Create a `.txt` file. Enter your required text here line-by-line. Currently, the code reads the sentences separated by newline.
 
-- Run it, `Cpp\NLP\feature_extraction\binaries\bow.exe <path to your .txt file>`
+- Run it, `Cpp\NLP\feature_extraction\binaries\<respective-binary> <path to your .txt file>`
 
 > Note: Currently binary only available for Windows. For linux or mac, you need to compile and run it yourself. 
