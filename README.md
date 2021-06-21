@@ -19,9 +19,13 @@ It's now deployed -> [Check it out!](https://textfeaturextractor.herokuapp.com/)
 ## Contents
 
 - NLP
-    - Feature extraction 
-        - [Bag of words](https://github.com/Abhiswain97/ML-from-scratch/blob/master/NLP/feature_extraction/BOW.py) 
-        - [TFIDF](https://github.com/Abhiswain97/ML-from-scratch/blob/master/NLP/feature_extraction/Tfidf.py) or [TFIDF-sklearn](https://github.com/Abhiswain97/ML-from-scratch/blob/master/sklearn/NLP/feature_extraction/Tfidf.py) 
+    - Python
+      - Feature extraction 
+          - [Bag of words](https://github.com/Abhiswain97/ML-from-scratch/blob/master/NLP/feature_extraction/BOW.py) 
+          - [TFIDF](https://github.com/Abhiswain97/ML-from-scratch/blob/master/NLP/feature_extraction/Tfidf.py) or [TFIDF-sklearn](https://github.com/Abhiswain97/ML-from-scratch/blob/master/sklearn/NLP/feature_extraction/Tfidf.py)
+    - C++
+      - Feature extraction
+          - [Bag of Words](https://github.com/Abhiswain97/ML-from-scratch/blob/master/Cpp/NLP/feature_extraction/src/BOW.cpp)   
 
 
 ## Running the app
@@ -48,7 +52,7 @@ cd ML-from-scratch
 
 > Note: Incase you're running the app with docker, simply closing the broswer doesn't stop the app. It's still running. You need to stop the docker container. For that open powershell or git bash and do, `docker kill <container-id>` (You can get the container ID by running `docker container ls`). Then do `docker container prune`. 
 
-## Runnig the Cpp examples
+## Running the Cpp examples
 
 - Have a C++ compiler like g++ or clang++. I use clang++.
 
