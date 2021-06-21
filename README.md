@@ -26,7 +26,7 @@ It's now deployed -> [Check it out!](https://textfeaturextractor.herokuapp.com/)
     - C++
       - Feature extraction
           - [Bag of Words](https://github.com/Abhiswain97/ML-from-scratch/blob/master/Cpp/NLP/feature_extraction/src/BOW.cpp)
-          - [TFIDF](https://github.com/Abhiswain97/ML-from-scratch/blob/master/Cpp/NLP/feature_extraction/src/Tfidf.cpp) [It's a work in progress]   
+          - [TFIDF](https://github.com/Abhiswain97/ML-from-scratch/blob/master/Cpp/NLP/feature_extraction/src/Tfidf.cpp) 
 
 
 ## Running the app

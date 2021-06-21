@@ -33,6 +33,13 @@ void Tfidf::print_vector(std::vector<std::vector<double>> &vector)
     }
 }
 
+/**
+ * Computes the term-frequency of a word in a sentence
+ * tf(sentence, word) = (# occurences of word in the sentence) / (# words in the sentence)
+ * @param sentence: the sentence/document
+ * @param word: the word
+ * @return computed tf value
+ */
 double Tfidf::compute_tf(std::string &sentence, std::string &word)
 {
     std::vector<std::string> tokens = this->tokenize(sentence);
@@ -41,6 +48,12 @@ double Tfidf::compute_tf(std::string &sentence, std::string &word)
     return counts[word] / double(tokens.size());
 }
 
+/**
+ * Computes the inverse-document-frequency of all unique words in the corpus
+ * idf[word] = (# documents) / (# documents containing the word)
+ * 
+ * @return A map containing all the unique words with their correpsonding idf values
+ */
 std::map<std::string, double> Tfidf::compute_idf()
 {
     std::map<std::string, double> idf_dict;
@@ -60,7 +73,7 @@ std::map<std::string, double> Tfidf::compute_idf()
                 { counter += (token.compare(word)) ? 1 : 0; });
         }
 
-        idf_dict[word] = 1 + log((N + 1) / double(counter + 1));
+        idf_dict[word] = std::abs(log((N + 1) / double(counter + 1)));
     }
 
     return idf_dict;
@@ -108,7 +121,6 @@ std::vector<std::string> Tfidf::tokenize(std::string &str)
  * Create a vector of unique words from the corpus
  * @return vector of unique words
  */
-
 std::vector<std::string> Tfidf::unique_words()
 {
     std::set<std::string> words;
@@ -130,8 +142,8 @@ std::vector<std::string> Tfidf::unique_words()
 }
 
 /**
- * Calculate the Bag of words vector from the corpus.
- * @return Bag of words vector
+ * Calculate the TFIDF vector from the corpus.
+ * @return TFIDF vector
  */
 std::vector<std::vector<double>> Tfidf::fit()
 {
@@ -143,13 +155,10 @@ std::vector<std::vector<double>> Tfidf::fit()
 
     for (auto &sentence : this->vec)
     {
-        auto tokens = this->tokenize(sentence);
         std::vector<double> tfidf_row;
-        for (auto &token : tokens)
-        {
-            std::for_each(unq_wrds.begin(), unq_wrds.end(), [&](std::string word)
-                          { tfidf_row.push_back(this->compute_tf(sentence, word) * idf_dict[word]); });
-        }
+
+        std::for_each(unq_wrds.begin(), unq_wrds.end(), [&](std::string word)
+                      { tfidf_row.push_back(this->compute_tf(sentence, word) * idf_dict[word]); });
         Tfidf_vector.push_back(tfidf_row);
     }
 
@@ -182,21 +191,6 @@ int main(int argc, char const *argv[])
     auto Tfidf_vector = Tfidf.fit();
 
     Tfidf.print_vector(Tfidf_vector);
-
-    auto unq = Tfidf.unique_words();
-
-    for (auto &word : unq)
-    {
-        std::cout << word << " ";
-    }
-
-    // Tfidf tfidf(corpus);
-
-    // std::string word = "this";
-
-    // auto value = tfidf.compute_tf(corpus[0], word);
-
-    // std::cout << value << std::endl;
 
     return 0;
 }
