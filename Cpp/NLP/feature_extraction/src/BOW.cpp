@@ -123,33 +123,3 @@ std::vector<std::vector<int>> BOW::fit()
 
     return bow_vector;
 }
-
-int main(int argc, char const *argv[])
-{
-    // std::vector<std::string> corpus = {
-    //     "this is the first document mostly",
-    //     "this document is the second document",
-    //     "and this is the third one",
-    //     "is this the first document here",
-    // };
-
-    std::string path = argv[1];
-
-    std::ifstream file(path.c_str());
-
-    std::string line;
-    std::vector<std::string> corpus1;
-
-    while (std::getline(file, line))
-    {
-        corpus1.push_back(line);
-    }
-
-    BOW bow(corpus1);
-
-    auto bow_vector = bow.fit();
-
-    bow.print_vector(bow_vector);
-
-    return 0;
-}

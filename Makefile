@@ -29,3 +29,9 @@ compile:
 
 test_cpp: 
 	${CC} ${FNAME}
+
+create_dll:
+	g++ -fPIC --shared -o txt_ext.dll Cpp\NLP\feature_extraction\src\BOW.cpp Cpp\NLP\feature_extraction\src\Tfidf.cpp
+
+link:
+	${CC} -L. -ltxt_ext -o tests\main tests\main.cpp

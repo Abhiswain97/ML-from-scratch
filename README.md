@@ -55,10 +55,26 @@ cd ML-from-scratch
 
 ## Running the Cpp examples
 
-- Have a C++ compiler like g++ or clang++. I use clang++.
+### Requirements
+
+- A C++ compiler like g++ or clang++
+
+### Steps
+
+#### With default settings
 
 - Create a `.txt` file. Enter your required text here line-by-line. Currently, the code reads the sentences separated by newline.
 
-- Run it, `Cpp\NLP\feature_extraction\binaries\<respective-binary> <path to your .txt file>`
+- I have provided the `.exe` file. It's in the `tests` folder. You can simply run the `main.cpp` file by: `tests\main.exe <path to your .txt file>`.
 
-> Note: Currently binary only available for Windows. For linux or mac, you need to compile and run it yourself. 
+#### Custom
+
+- The other way is to use the `txt_ext.dll` and link it against your custom `.cpp` file. 
+
+- You need to include these two headers: `Bow.h` & `Tfidf.h` in your custom `.cpp` file.
+
+- Next build the `.exe` file by running: `g++ -L. -ltxt_ext -o main <you-cpp-file>.cpp`. Remember, the provided `txt_ext.dll` file should be located in the same folder as your `.cpp` file.
+
+- Now you can simple run: `main.exe`
+
+- You can refer the provided `main.cpp` file. 
