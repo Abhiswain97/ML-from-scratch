@@ -46,6 +46,10 @@ int main(int argc, char const *argv[])
 
             tfidf.print_vector(tfidf_vector);
         }
+        else if (n == 0)
+        {
+            exit(0);
+        }
         else
         {
             std::cout << "Invalid input" << std::endl;
