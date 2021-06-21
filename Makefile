@@ -24,8 +24,8 @@ run:
 	@echo.
 	${PYTHON} ${FNAME}
 
-create_lib: 
-	${CC} -c Cpp\NLP\feature_extraction\src\BOW.cpp
+compile: 
+	${CC} ${FNAME} 
 
 test_cpp: 
 	${CC} ${FNAME}

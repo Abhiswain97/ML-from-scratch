@@ -1,5 +1,5 @@
-#ifndef BOW_H_
-#define BOW_H_
+#ifndef TFIDF_H_
+#define TFIDF_H_
 
 #include <iostream>
 #include <vector>
@@ -11,20 +11,22 @@
 #include <set>
 #include <fstream>
 
-class BOW
+class Tfidf
 {
 private:
     std::vector<std::string> vec;
 
 public:
-    BOW(std::vector<std::string> &vec)
+    Tfidf(std::vector<std::string> &vec)
         : vec(vec) {}
     void print();
     std::vector<std::string> unique_words();
     std::map<std::string, int> make_count_map(std::string &sentence);
     std::vector<std::string> tokenize(std::string &sen);
-    std::vector<std::vector<int>> fit();
-    void print_vector(std::vector<std::vector<int>> &vector);
+    double compute_tf(std::string &sentence, std::string &word);
+    std::map<std::string, double> compute_idf();
+    std::vector<std::vector<double>> fit();
+    void print_vector(std::vector<std::vector<double>> &vector);
 };
 
 #endif
