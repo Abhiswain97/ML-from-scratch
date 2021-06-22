@@ -1,5 +1,10 @@
 #include "../include/Splitter.h"
 
+/**
+ * Randomly splits the dataset into train and test dataset
+ * @param test_pct: The percentage of test split
+ * @return a struct containing X_train, y_train, X_test & y_test
+ */
 struct split_ret Splitter::random_split(double &test_pct)
 {
     int test_index = floor(test_pct * this->X.size());
@@ -10,8 +15,7 @@ struct split_ret Splitter::random_split(double &test_pct)
     std::vector<int> y_test;
 
     // Randomly shuffle the vectors!
-
-    unsigned int seed = 7;
+    unsigned int seed = 42;
     std::shuffle(this->X.begin(), this->X.end(), std::default_random_engine(seed));
     std::shuffle(this->y.begin(), this->y.end(), std::default_random_engine(seed));
 
