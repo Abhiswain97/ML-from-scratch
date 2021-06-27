@@ -66,6 +66,8 @@ cd ML-from-scratch
 
 - Now, see the docs: `run_doc.bat`
 
+> Google chrome is a must as it opens the index file only on chrome.
+
 ## Running the Cpp examples
 
 ### Requirements
