@@ -1,8 +1,5 @@
 #include "../include/BOW.h"
 
-/**
- * Print the contents of the corpus.
- */
 void BOW::print()
 {
     for (auto &&vec : this->vec)
@@ -15,11 +12,6 @@ void BOW::print()
     }
 }
 
-/**
- * Print the contents of the bow_vector
- * 
- * @param vector which is to be printed
- */
 void BOW::print_vector(std::vector<std::vector<int>> &vector)
 {
     for (auto &row : vector)
@@ -33,11 +25,6 @@ void BOW::print_vector(std::vector<std::vector<int>> &vector)
     }
 }
 
-/**
- * Create a map of counts of each word in string
- * @param sentence: The string
- * @return map containing counts of each word
- */
 std::map<std::string, int> BOW::make_count_map(std::string &sentence)
 {
     std::map<std::string, int> count_map;
@@ -53,11 +40,6 @@ std::map<std::string, int> BOW::make_count_map(std::string &sentence)
     return count_map;
 }
 
-/**
- * Tokenize a sentence by spaces
- * @param str: The string to tokenize
- * @return vector containing tokens
- */
 std::vector<std::string> BOW::tokenize(std::string &str)
 {
     std::vector<std::string> tokens;
@@ -70,11 +52,6 @@ std::vector<std::string> BOW::tokenize(std::string &str)
 
     return tokens;
 }
-
-/**
- * Create a vector of unique words from the corpus
- * @return vector of unique words
- */
 
 std::vector<std::string> BOW::unique_words()
 {
@@ -96,10 +73,6 @@ std::vector<std::string> BOW::unique_words()
     return unq_wrds;
 }
 
-/**
- * Calculate the Bag of words vector from the corpus.
- * @return Bag of words vector
- */
 std::vector<std::vector<int>> BOW::fit()
 {
     std::vector<std::vector<int>> bow_vector;
