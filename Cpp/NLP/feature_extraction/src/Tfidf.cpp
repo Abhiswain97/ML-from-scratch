@@ -1,8 +1,5 @@
 #include "../include/Tfidf.h"
 
-/**
- * Print the contents of the corpus.
- */
 void Tfidf::print()
 {
     for (auto &&vec : this->vec)
@@ -15,11 +12,6 @@ void Tfidf::print()
     }
 }
 
-/**
- * Print the contents of the Tfidf_vector
- * 
- * @param vector which is to be printed
- */
 void Tfidf::print_vector(std::vector<std::vector<double>> &vector)
 {
     for (auto &row : vector)
@@ -33,13 +25,6 @@ void Tfidf::print_vector(std::vector<std::vector<double>> &vector)
     }
 }
 
-/**
- * Computes the term-frequency of a word in a sentence
- * tf(sentence, word) = (# occurences of word in the sentence) / (# words in the sentence)
- * @param sentence: the sentence/document
- * @param word: the word
- * @return computed tf value
- */
 double Tfidf::compute_tf(std::string &sentence, std::string &word)
 {
     std::vector<std::string> tokens = this->tokenize(sentence);
@@ -48,12 +33,6 @@ double Tfidf::compute_tf(std::string &sentence, std::string &word)
     return counts[word] / double(tokens.size());
 }
 
-/**
- * Computes the inverse-document-frequency of all unique words in the corpus
- * idf[word] = (# documents) / (# documents containing the word)
- * 
- * @return A map containing all the unique words with their correpsonding idf values
- */
 std::map<std::string, double> Tfidf::compute_idf()
 {
     std::map<std::string, double> idf_dict;
@@ -79,11 +58,6 @@ std::map<std::string, double> Tfidf::compute_idf()
     return idf_dict;
 }
 
-/**
- * Create a map of counts of each word in string
- * @param sentence: The string
- * @return map containing counts of each word
- */
 std::map<std::string, int> Tfidf::make_count_map(std::string &sentence)
 {
     std::map<std::string, int> count_map;
@@ -99,11 +73,6 @@ std::map<std::string, int> Tfidf::make_count_map(std::string &sentence)
     return count_map;
 }
 
-/**
- * Tokenize a sentence by spaces
- * @param str: The string to tokenize
- * @return vector containing tokens
- */
 std::vector<std::string> Tfidf::tokenize(std::string &str)
 {
     std::vector<std::string> tokens;
@@ -117,10 +86,6 @@ std::vector<std::string> Tfidf::tokenize(std::string &str)
     return tokens;
 }
 
-/**
- * Create a vector of unique words from the corpus
- * @return vector of unique words
- */
 std::vector<std::string> Tfidf::unique_words()
 {
     std::set<std::string> words;
@@ -141,10 +106,6 @@ std::vector<std::string> Tfidf::unique_words()
     return unq_wrds;
 }
 
-/**
- * Calculate the TFIDF vector from the corpus.
- * @return TFIDF vector
- */
 std::vector<std::vector<double>> Tfidf::fit()
 {
     std::vector<std::vector<double>> Tfidf_vector;
