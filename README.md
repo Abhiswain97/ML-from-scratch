@@ -56,6 +56,16 @@ cd ML-from-scratch
 
 > Note: Incase you're running the app with docker, simply closing the broswer doesn't stop the app. It's still running. You need to stop the docker container. For that open powershell or git bash and do, `docker kill <container-id>` (You can get the container ID by running `docker container ls`). Then do `docker container prune`. 
 
+## Documentation for Cpp examples
+
+- Install doxygen
+
+- Clone the repo: `git clone https://github.com/Abhiswain97/ML-from-scratch.git`
+
+- Do, `doxygen`
+
+- Now, see the docs: `run_doc.bat`
+
 ## Running the Cpp examples
 
 ### Requirements
