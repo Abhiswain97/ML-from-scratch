@@ -1,0 +1,10 @@
+.mypy_cache/
+
+
+.vscode/
+
+NLP/feature_extraction/__pycache__/
+
+*.pyc
+
+.idea/
