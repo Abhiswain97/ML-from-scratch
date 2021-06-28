@@ -16,7 +16,22 @@ private:
 
 public:
     int tp, fp, tn, fn;
-    double tpr, fpr, fnr, tnr, precision, recall, f1_score, accuracy;
+    /** True positive rate */
+    double tpr,
+        /** False positive rate */
+        fpr,
+        /** Flase negative rate */
+        fnr,
+        /** True negative rate */
+        tnr,
+        /** precision */
+        precision,
+        /** recall */
+        recall,
+        /** f1-score */
+        f1_score,
+        /** accuracy */
+        accuracy;
     Metrics(std::vector<int> y_test, std::vector<int> y_pred)
         : y_test(y_test), y_pred(y_pred),
           tp(0), fp(0), tn(0), fn(0), fpr(0.0),
