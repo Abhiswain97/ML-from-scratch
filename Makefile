@@ -27,7 +27,7 @@ run:
 compile: 
 	${CC} ${FNAME} 
 
-test_cpp: 
+run_cpp: 
 	${CC} ${FNAME}
 
 create_dll:
