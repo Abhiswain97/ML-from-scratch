@@ -25,7 +25,10 @@ public:
           f1_score(0.0), accuracy(0.0) {}
 
     /**
-     * @brief Create a confusion matrix by calculating tpr, fpr, tnr, fnr and their rates
+     * @brief Create a a binary classification report containing: 
+     * true positive rate, false positive rate, false negative rate, true negative rate, 
+     * precision, recall, 
+     * f1_score, accuracy
      * 
      */
     void binary_classification_report();
