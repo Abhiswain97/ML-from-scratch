@@ -60,11 +60,17 @@ cd ML-from-scratch
 
 - Install doxygen
 
-- Clone the repo: `git clone https://github.com/Abhiswain97/ML-from-scratch.git`
+- Clone the repo: 
+  ```
+  git clone https://github.com/Abhiswain97/ML-from-scratch.git
+  cd ML-from-scratch
+  ```
 
 - Do, `doxygen`
 
 - Now, see the docs: `run_doc.bat`
+
+> Google chrome is a must as it opens the index file only on chrome.
 
 ## Running the Cpp examples
 
