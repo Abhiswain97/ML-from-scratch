@@ -32,6 +32,14 @@ public:
      * 
      */
     void binary_classification_report();
+
+    /**
+     * @brief Calculate log loss for binary labels
+     * log-loss = -(1/n) * sum((log(y_hat ^ i) * y ^ i) + ((1 - log(y_hat ^ i)) * (1 - y ^ i)))
+     * 
+     * @return double 
+     */
+    double binary_log_loss(std::vector<double> &y_probs);
 };
 
 #endif

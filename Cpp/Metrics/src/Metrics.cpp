@@ -42,6 +42,15 @@ void Metrics::binary_classification_report()
     std::cout << "Accuracy: " << this->accuracy << "\n";
 }
 
+double Metrics::binary_log_loss(std::vector<double> &y_probs)
+{
+    double sum = 0.0;
+    for (int i = 0; i < this->y_pred.size(); i++)
+        sum += (this->y_pred[i] * log(this->y_pred[i])) + ((1 - this->y_pred[i]) * log(1 - y_probs[i]));
+
+    return (-1) * (1 / double(this->y_pred.size())) * sum;
+}
+
 int main(int argc, char const *argv[])
 {
     std::vector<int> y_test = {1,
