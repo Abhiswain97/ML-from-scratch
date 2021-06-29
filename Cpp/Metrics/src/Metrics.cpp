@@ -1,5 +1,18 @@
 #include "../include/Metrics.h"
 
+std::vector<int> Metrics::unique_lables()
+{
+    std::set<int> lbls;
+    std::vector<int> f_lbls;
+    std::for_each(y_test.begin(), y_test.end(), [&](int ele) -> void
+                  { lbls.insert(ele); });
+
+    std::for_each(f_lbls.begin(), f_lbls.end(), [&](int ele) -> void
+                  { f_lbls.push_back(ele); });
+
+    return f_lbls;
+}
+
 void Metrics::binary_classification_report()
 {
     for (size_t i = 0; i < this->y_test.size(); i++)
@@ -45,11 +58,27 @@ void Metrics::binary_classification_report()
 double Metrics::binary_log_loss(std::vector<double> &y_probs)
 {
     double sum = 0.0;
-    for (int i = 0; i < this->y_pred.size(); i++)
-        sum += (this->y_pred[i] * log(this->y_pred[i])) + ((1 - this->y_pred[i]) * log(1 - y_probs[i]));
+    for (int i = 0; i < this->y_test.size(); i++)
+        sum += (this->y_test[i] * log(y_probs[i])) + ((1 - this->y_test[i]) * log(1 - y_probs[i]));
 
-    return (-1) * (1 / double(this->y_pred.size())) * sum;
+    return (-1) * (1 / double(this->y_test.size())) * sum;
 }
+
+// ------------------------------------------------- WIP ------------------------------------------------------ //
+double Metrics::multiclass_log_loss(std::vector<std::vector<double>> &y_probs)
+{
+    std::vector<int> labels = this->unique_lables();
+    for (int i = 0; i < this->y_test.size(); i++)
+    {
+        for (int j = 0; j < labels.size(); j++)
+        {
+            if (labels[j] == y_test[i])
+            {
+            }
+        }
+    }
+}
+// ------------------------------------------------- WIP ------------------------------------------------------ //
 
 int main(int argc, char const *argv[])
 {

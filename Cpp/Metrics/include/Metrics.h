@@ -13,6 +13,12 @@ class Metrics
 {
 private:
     std::vector<int> y_test, y_pred;
+    /**
+     * @brief Finds vector of all the unique labels
+     * 
+     * @return std::vector<int> 
+     */
+    std::vector<int> unique_lables();
 
 public:
     int tp, fp, tn, fn;
@@ -50,12 +56,22 @@ public:
 
     /**
      * @brief Calculate log loss for binary labels
-     * log-loss = -(1/n) * sum((log(y_hat ^ i) * y ^ i) + ((1 - log(y_hat ^ i)) * (1 - y ^ i)))
+     * log-loss = -(1/n) * sum((log(y^hat_i) * y_i) + ((1 - log(y^hat_i)) * (1 - y_i)))
      * 
      * @param y_probs: vector of predicted probabilities
      * @return double 
      */
     double binary_log_loss(std::vector<double> &y_probs);
+
+    /**
+     * @brief Calculate log loss for multi-class labels
+     * log-loss = -(1/n) * sum(sum(y_ij * y^hat_ij)) 
+     * where, y_ij = 1 if i'th data point belongs to j'th class other wise 0
+     * @param y_probs: vector of predicted probabilities 
+     * @param labels: vector of unique labels
+     * @return double 
+     */
+    double multiclass_log_loss(std::vector<std::vector<double>> &y_probs);
 };
 
 #endif
