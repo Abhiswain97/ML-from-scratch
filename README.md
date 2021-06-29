@@ -65,7 +65,11 @@ cd ML-from-scratch
   git clone https://github.com/Abhiswain97/ML-from-scratch.git
   cd ML-from-scratch
   ```
-
+- In Doxyfile set:
+  ```
+  OUTPUT_DIRECTORY = C:\....\Desktop\ML-from-scratch\Cpp\docs
+  INPUT = C:\....\Desktop\ML-from-scratch\Cpp
+  ```
 - Do, `doxygen`
 
 - Now, see the docs: `run_doc.bat`
