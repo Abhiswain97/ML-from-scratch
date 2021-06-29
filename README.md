@@ -82,6 +82,8 @@ cd ML-from-scratch
 
 ### Steps
 
+> Currently the instructions are only for TFIDF and BOW vector calculation
+
 #### With default settings
 
 - Create a `.txt` file. Enter your required text here line-by-line. Currently, the code reads the sentences separated by newline.
