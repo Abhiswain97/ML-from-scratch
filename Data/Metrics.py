@@ -1,5 +1,6 @@
 import random
 import math
+from typing import List
 
 
 class Metrics:
@@ -16,7 +17,7 @@ class Metrics:
                 return self.metrics[metric](y_true, y_pred)
 
     @staticmethod
-    def accuracy(y_true, y_pred):
+    def accuracy(y_true: List[int], y_pred: List[int]) -> float:
         return sum(
             [
                 1 if label == pred_label else 0
@@ -25,7 +26,7 @@ class Metrics:
         ) / len(y_true)
 
     @staticmethod
-    def log_loss(y_true, y_probs):
+    def log_loss(y_true: List[int], y_probs: List[float]) -> float:
         return (
             -1
             * (1 / len(y_true))
