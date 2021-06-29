@@ -72,9 +72,7 @@ cd ML-from-scratch
   ```
 - Do, `doxygen`
 
-- Now, see the docs: `run_doc.bat`
-
-> Google chrome is a must as it opens the index file only on chrome.
+- Now, navigate to `C:\....\Desktop\ML-from-scratch\Cpp\docs\html` and run the `index.html` file.
 
 ## Running the Cpp examples
 
