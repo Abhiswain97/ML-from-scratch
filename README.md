@@ -82,22 +82,19 @@ cd ML-from-scratch
 
 ### Steps
 
-> Currently the instructions are only for TFIDF and BOW vector calculation
+- You need two files: a `.txt` file containing the corpus and another containing the labels
 
 #### With default settings
 
-- Create a `.txt` file. Enter your required text here line-by-line. Currently, the code reads the sentences separated by newline.
+- You can simply run my `main.cpp` by doing `tests\main.exe tests\features.txt tests\labels.txt`
 
-- I have provided the `.exe` file. It's in the `tests` folder. You can simply run the `main.cpp` file by: `tests\main.exe <path to your .txt file>`.
+#### With custom settings
 
-#### Custom
+- I have provided the `.dll` file in the tests folder. You can create your custom `.cpp` file. You need to include 4 header files namely: `BOW.h`, `Tfidf.h`, `Metrics.h`, `Splitter.h` (Use `main.cpp` as a reference)
 
-- The other way is to use the `txt_ext.dll` and link it against your custom `.cpp` file. 
+- Next create the executable by: `g++ -L. -lapp -o main <your-custom-cpp-file>`
+  > Remember the `app.dll` file should be in the same directory as your custom cpp file.
 
-- You need to include these two headers: `Bow.h` & `Tfidf.h` in your custom `.cpp` file.
+- This will create `main.exe`. Now run it by: `main.exe <path-to-corpus-file> <path-to-labels-file>`
 
-- Next build the `.exe` file by running: `g++ -L. -ltxt_ext -o main <you-cpp-file>.cpp`. Remember, the provided `txt_ext.dll` file should be located in the same folder as your `.cpp` file.
 
-- Now you can simple run: `main.exe`
-
-- You can refer the provided `main.cpp` file. 

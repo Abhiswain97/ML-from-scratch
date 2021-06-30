@@ -1,5 +1,27 @@
-#include "../Cpp/NLP/feature_extraction/include/BOW.h"
 #include "../Cpp/NLP/feature_extraction/include/Tfidf.h"
+#include "../Cpp/NLP/feature_extraction/include/BOW.h"
+#include "../Cpp/Data/include/Splitter.h"
+#include "../Cpp/Metrics/include/Metrics.h"
+
+std::vector<int> dummy_model(std::vector<std::vector<double>> &X_train, std::vector<int> &y_train)
+{
+    double sum = 0.0, avg = 0.0;
+    std::vector<int> y_pred;
+
+    for (auto &feature : X_train)
+    {
+        std::for_each(feature.begin(), feature.end(), [&](double f) -> void
+                      { sum += f; });
+        avg = sum / (double)feature.size();
+
+        if (avg < 0.5)
+            y_pred.push_back(0);
+        else
+            y_pred.push_back(1);
+    }
+
+    return y_pred;
+}
 
 int main(int argc, char const *argv[])
 {
@@ -9,52 +31,55 @@ int main(int argc, char const *argv[])
               << "\n [1] Bag of Words \n [2] TFIDF"
               << "\n Press 0 to exit" << std::endl;
 
-    std::string path = argv[1];
+    std::cin >> n;
 
-    std::ifstream file(path.c_str());
+    std::string features_path = argv[1];
+    std::string labels_path = argv[2];
+
+    std::ifstream file(features_path.c_str());
+    std::ifstream file1(labels_path.c_str());
 
     std::string line;
-    std::vector<std::string> corpus1;
+    std::vector<std::string> corpus;
 
     while (std::getline(file, line))
     {
-        corpus1.push_back(line);
+        corpus.push_back(line);
     }
 
-    // BOW bow(corpus1);
+    std::string line2;
+    std::vector<int> labels;
+    int t;
 
-    // auto bow_vector = bow.fit();
-
-    // bow.print_vector(bow_vector);
-
-    do
+    while (std::getline(file1, line2))
     {
-        std::cin >> n;
-        if (n == 1)
-        {
-            BOW bow(corpus1);
+        sscanf(line2.c_str(), "%d", t);
+        labels.push_back(t);
+    }
 
-            auto bow_vector = bow.fit();
+    Tfidf tfidf(corpus);
+    BOW bow(corpus);
 
-            bow.print_vector(bow_vector);
-        }
-        else if (n == 2)
-        {
-            Tfidf tfidf(corpus1);
+    auto features = (n == 1) ? bow.fit() : tfidf.fit();
 
-            auto tfidf_vector = tfidf.fit();
+    Splitter splitter(features, labels);
 
-            tfidf.print_vector(tfidf_vector);
-        }
-        else if (n == 0)
-        {
-            exit(0);
-        }
-        else
-        {
-            std::cout << "Invalid input" << std::endl;
-        }
-    } while (n != 0);
+    double pct = 0.75;
+
+    auto dataset = splitter.random_split(pct);
+
+    auto X_train = dataset.X_train;
+    auto y_train = dataset.y_train;
+    auto X_test = dataset.X_test;
+    auto y_test = dataset.y_test;
+
+    auto y_pred = dummy_model(X_train, y_train);
+
+    Metrics metrics(y_test, y_pred);
+
+    metrics.binary_classification_report();
+
+    std::cout << metrics.precision << " " << metrics.recall;
 
     return 0;
 }

@@ -12,7 +12,7 @@ void BOW::print()
     }
 }
 
-void BOW::print_vector(std::vector<std::vector<int>> &vector)
+void BOW::print_vector(std::vector<std::vector<double>> &vector)
 {
     for (auto &row : vector)
     {
@@ -73,13 +73,13 @@ std::vector<std::string> BOW::unique_words()
     return unq_wrds;
 }
 
-std::vector<std::vector<int>> BOW::fit()
+std::vector<std::vector<double>> BOW::fit()
 {
-    std::vector<std::vector<int>> bow_vector;
+    std::vector<std::vector<double>> bow_vector;
 
     for (auto &sentence : this->vec)
     {
-        std::vector<int> bow_row;
+        std::vector<double> bow_row;
 
         std::map<std::string, int> counts = this->make_count_map(sentence);
         std::vector<std::string> words = this->unique_words();
@@ -87,9 +87,9 @@ std::vector<std::vector<int>> BOW::fit()
         for (auto &word : words)
         {
             if (counts.count(word))
-                bow_row.push_back(counts[word]);
+                bow_row.push_back((double)counts[word]);
             else
-                bow_row.push_back(0);
+                bow_row.push_back(0.0);
         }
         bow_vector.push_back(bow_row);
     }

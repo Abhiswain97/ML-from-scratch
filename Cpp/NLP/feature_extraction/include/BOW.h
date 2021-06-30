@@ -48,14 +48,14 @@ public:
      * Calculate the Bag of words vector from the corpus.
      * @return Bag of words vector
      */
-    std::vector<std::vector<int>> fit();
+    std::vector<std::vector<double>> fit();
 
     /**
      * Print the contents of the bow_vector
      * 
      * @param vector which is to be printed
      */
-    void print_vector(std::vector<std::vector<int>> &vector);
+    void print_vector(std::vector<std::vector<double>> &vector);
 };
 
 #endif

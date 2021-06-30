@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SPLITTER_H_
+#define SPLITTER_H_
 
 #include <iostream>
 #include <vector>
@@ -31,3 +32,5 @@ public:
      */
     struct split_ret random_split(double &test_pct);
 };
+
+#endif

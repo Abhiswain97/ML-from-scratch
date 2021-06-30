@@ -80,27 +80,27 @@ double Metrics::multiclass_log_loss(std::vector<std::vector<double>> &y_probs)
 }
 // ------------------------------------------------- WIP ------------------------------------------------------ //
 
-int main(int argc, char const *argv[])
-{
-    std::vector<int> y_test = {1,
-                               0,
-                               0,
-                               1,
-                               0,
-                               1,
-                               1};
+// int main(int argc, char const *argv[])
+// {
+//     std::vector<int> y_test = {1,
+//                                0,
+//                                0,
+//                                1,
+//                                0,
+//                                1,
+//                                1};
 
-    std::vector<int> y_pred = {0,
-                               0,
-                               1,
-                               1,
-                               0,
-                               1,
-                               1};
+//     std::vector<int> y_pred = {0,
+//                                0,
+//                                1,
+//                                1,
+//                                0,
+//                                1,
+//                                1};
 
-    Metrics metrics(y_test, y_pred);
+//     Metrics metrics(y_test, y_pred);
 
-    metrics.binary_classification_report();
+//     metrics.binary_classification_report();
 
-    std::cout << "True positive rate: " << metrics.tpr << std::endl;
-}
+//     std::cout << "True positive rate: " << metrics.tpr << std::endl;
+// }
