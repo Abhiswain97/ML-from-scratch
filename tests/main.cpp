@@ -3,10 +3,13 @@
 #include "../Cpp/Data/include/Splitter.h"
 #include "../Cpp/Metrics/include/Metrics.h"
 
-std::vector<int> dummy_model(std::vector<std::vector<double>> &X_train, std::vector<int> &y_train)
+using pred_probs = std::pair<std::vector<int>, std::vector<double>>;
+
+pred_probs dummy_model(std::vector<std::vector<double>> &X_train, std::vector<int> &y_train)
 {
     double sum = 0.0, avg = 0.0;
     std::vector<int> y_pred;
+    std::vector<double> y_probs;
 
     for (auto &feature : X_train)
     {
@@ -14,13 +17,17 @@ std::vector<int> dummy_model(std::vector<std::vector<double>> &X_train, std::vec
                       { sum += f; });
         avg = sum / (double)feature.size();
 
+        y_probs.push_back(avg);
+
+        // std::cout << avg << " ";
+
         if (avg < 0.5)
             y_pred.push_back(0);
         else
             y_pred.push_back(1);
     }
 
-    return y_pred;
+    return std::make_pair(y_pred, y_probs);
 }
 
 int main(int argc, char const *argv[])
@@ -73,13 +80,13 @@ int main(int argc, char const *argv[])
     auto X_test = dataset.X_test;
     auto y_test = dataset.y_test;
 
-    auto y_pred = dummy_model(X_train, y_train);
+    auto values = dummy_model(X_train, y_train);
 
-    Metrics metrics(y_test, y_pred);
+    Metrics metrics(y_test, values.first);
 
     metrics.binary_classification_report();
 
-    std::cout << metrics.precision << " " << metrics.recall;
+    std::cout << "Binary log-loss: " << metrics.binary_log_loss(values.second);
 
     return 0;
 }
