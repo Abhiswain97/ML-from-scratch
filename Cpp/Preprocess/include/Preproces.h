@@ -20,6 +20,16 @@ private:
      */
     std::vector<std::string> labels;
 
+    /**
+     * @brief impute missing values in a feature by substituting mean.
+     * 
+     * @tparam T 
+     * @param feature_column 
+     * @return std::vector<T> 
+     */
+    template <typename T>
+    std::vector<T> impute_column_by_mean(std::vector<T> feature_column);
+
 public:
     /**
      * @brief Construct a new Preprocess object
