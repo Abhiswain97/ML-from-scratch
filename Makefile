@@ -31,9 +31,11 @@ run_cpp:
 	${CC} ${FNAME}
 
 create_dll:
-	g++ -fPIC --shared -o tests\app.dll Cpp\NLP\feature_extraction\src\BOW.cpp Cpp\NLP\feature_extraction\src\Tfidf.cpp Cpp\Metrics\src\Metrics.cpp Cpp\Data\src\Splitter.cpp
+	${PYTHON} util_scripts\cpp_utils.py ${COMP}
 
 link:
 	${CC} -L.\tests -lapp -o tests\main tests\main.cpp
 
+make_docs:
+	doxygen
 
