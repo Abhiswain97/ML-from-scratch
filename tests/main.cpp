@@ -37,51 +37,55 @@ int main(int argc, char const *argv[]) {
 
   std::cin >> n;
 
-  std::string features_path = argv[1];
-  std::string labels_path = argv[2];
+  if (argc == 1) {
+    std::cout << "No arguments provided! Exiting!";
+    exit(0);
+  } else {
+    std::string features_path = argv[1];
+    std::string labels_path = argv[2];
+    std::ifstream file(features_path.c_str());
+    std::ifstream file1(labels_path.c_str());
 
-  std::ifstream file(features_path.c_str());
-  std::ifstream file1(labels_path.c_str());
+    std::string line;
+    std::vector<std::string> corpus;
 
-  std::string line;
-  std::vector<std::string> corpus;
+    while (std::getline(file, line)) {
+      corpus.push_back(line);
+    }
 
-  while (std::getline(file, line)) {
-    corpus.push_back(line);
+    std::string line2;
+    std::vector<int> labels;
+    int t;
+
+    while (std::getline(file1, line2)) {
+      sscanf(line2.c_str(), "%d", t);
+      labels.push_back(t);
+    }
+
+    Tfidf tfidf(corpus);
+    BOW bow(corpus);
+
+    auto features = (n == 1) ? bow.fit() : tfidf.fit();
+
+    Splitter splitter(features, labels);
+
+    double pct = 0.75;
+
+    auto dataset = splitter.random_split(pct);
+
+    auto X_train = dataset.X_train;
+    auto y_train = dataset.y_train;
+    auto X_test = dataset.X_test;
+    auto y_test = dataset.y_test;
+
+    auto values = dummy_model(X_train, y_train);
+
+    Metrics metrics(y_test, values.first);
+
+    metrics.binary_classification_report();
+
+    std::cout << "Binary log-loss: " << metrics.binary_log_loss(values.second);
   }
-
-  std::string line2;
-  std::vector<int> labels;
-  int t;
-
-  while (std::getline(file1, line2)) {
-    sscanf(line2.c_str(), "%d", t);
-    labels.push_back(t);
-  }
-
-  Tfidf tfidf(corpus);
-  BOW bow(corpus);
-
-  auto features = (n == 1) ? bow.fit() : tfidf.fit();
-
-  Splitter splitter(features, labels);
-
-  double pct = 0.75;
-
-  auto dataset = splitter.random_split(pct);
-
-  auto X_train = dataset.X_train;
-  auto y_train = dataset.y_train;
-  auto X_test = dataset.X_test;
-  auto y_test = dataset.y_test;
-
-  auto values = dummy_model(X_train, y_train);
-
-  Metrics metrics(y_test, values.first);
-
-  metrics.binary_classification_report();
-
-  std::cout << "Binary log-loss: " << metrics.binary_log_loss(values.second);
 
   return 0;
 }
