@@ -86,11 +86,11 @@ cd ML-from-scratch
 
 #### With default settings
 
-- You can simply run my `main.cpp` by doing `tests\main.exe tests\features.txt tests\labels.txt`
+- You can simply run my `main.cpp` by doing `Cpp\examples\main.exe Cpp\examples\features.txt Cpp\examples\labels.txt`
 
 #### With custom settings
 
-- I have provided the `.dll` file in the tests folder. You can create your custom `.cpp` file. You need to include 4 header files namely: `BOW.h`, `Tfidf.h`, `Metrics.h`, `Splitter.h` (Use `main.cpp` as a reference)
+- I have provided the `.dll` file in the `Cpp\examples` folder. You can create your custom `.cpp` file. You need to include 4 header files namely: `BOW.h`, `Tfidf.h`, `Metrics.h`, `Splitter.h` (Use `main.cpp` as a reference)
 
 - Next create the executable by: `g++ -L. -lapp -o main <your-custom-cpp-file>`
   > Remember the `app.dll` file should be in the same directory as your custom cpp file.
