@@ -31,6 +31,7 @@ pred_probs dummy_model(std::vector<std::vector<double>> &X_train,
 
 int main(int argc, char const *argv[]) {
   int n;
+  std::cout << "Heya! from main.cpp file" << std::endl;
 
   std::cout << "Enter the method you want to use: "
             << "\n [1] Bag of Words \n [2] TFIDF"
@@ -71,10 +72,12 @@ int main(int argc, char const *argv[]) {
 
   auto dataset = splitter.random_split(pct);
 
-  auto X_train = dataset.X_train;
-  auto y_train = dataset.y_train;
-  auto X_test = dataset.X_test;
-  auto y_test = dataset.y_test;
+  auto [X_train, y_train, X_test, y_test] = dataset;
+
+  // auto X_train = dataset.X_train;
+  // auto y_train = dataset.y_train;
+  // auto X_test = dataset.X_test;
+  // auto y_test = dataset.y_test;
 
   auto values = dummy_model(X_train, y_train);
 
