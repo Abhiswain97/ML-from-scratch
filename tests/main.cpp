@@ -33,8 +33,7 @@ int main(int argc, char const *argv[]) {
   int n;
 
   std::cout << "Enter the method you want to use: "
-            << "\n [1] Bag of Words \n [2] TFIDF"
-            << "\n Press 0 to exit" << std::endl;
+            << "\n [1] Bag of Words \n [2] TFIDF" << std::endl;
 
   std::cin >> n;
 
