@@ -31,61 +31,65 @@ pred_probs dummy_model(std::vector<std::vector<double>> &X_train,
 
 int main(int argc, char const *argv[]) {
   int n;
-  std::cout << "Heya! from main.cpp file" << std::endl;
 
   std::cout << "Enter the method you want to use: "
-            << "\n [1] Bag of Words \n [2] TFIDF"
-            << "\n Press 0 to exit" << std::endl;
+            << "\n [1] Bag of Words \n [2] TFIDF" << std::endl;
 
   std::cin >> n;
 
-  std::string features_path = argv[1];
-  std::string labels_path = argv[2];
+  if (argc < 2) {
+    std::cout << "One or more arguments are missing"
+              << "\n"
+              << "Making a graceful exit"
+              << "\n";
+    exit(0);
+  } else {
+    std::string features_path = argv[1];
+    std::string labels_path = argv[2];
 
-  std::ifstream file(features_path.c_str());
-  std::ifstream file1(labels_path.c_str());
+    std::ifstream file(features_path.c_str());
+    std::ifstream file1(labels_path.c_str());
 
-  std::string line;
-  std::vector<std::string> corpus;
+    std::string line;
+    std::vector<std::string> corpus;
 
-  while (std::getline(file, line)) {
-    corpus.push_back(line);
+    while (std::getline(file, line)) {
+      corpus.push_back(line);
+    }
+
+    std::string line2;
+    std::vector<int> labels;
+    int t;
+
+    while (std::getline(file1, line2)) {
+      sscanf(line2.c_str(), "%d", t);
+      labels.push_back(t);
+    }
+
+    Tfidf tfidf(corpus);
+    BOW bow(corpus);
+
+    auto features = (n == 1) ? bow.fit() : tfidf.fit();
+
+    Splitter splitter(features, labels);
+
+    double pct = 0.75;
+
+    auto dataset = splitter.random_split(pct);
+
+    auto X_train = dataset.X_train;
+    auto y_train = dataset.y_train;
+    auto X_test = dataset.X_test;
+    auto y_test = dataset.y_test;
+
+    auto values = dummy_model(X_train, y_train);
+
+    Metrics metrics(y_test, values.first);
+
+    metrics.binary_classification_report();
+
+    std::cout << "Binary log-loss: " << metrics.binary_log_loss(values.second);
   }
-
-  std::string line2;
-  std::vector<int> labels;
-  int t;
-
-  while (std::getline(file1, line2)) {
-    sscanf(line2.c_str(), "%d", t);
-    labels.push_back(t);
-  }
-
-  Tfidf tfidf(corpus);
-  BOW bow(corpus);
-
-  auto features = (n == 1) ? bow.fit() : tfidf.fit();
-
-  Splitter splitter(features, labels);
-
-  double pct = 0.75;
-
-  auto dataset = splitter.random_split(pct);
-
-  auto [X_train, y_train, X_test, y_test] = dataset;
-
-  // auto X_train = dataset.X_train;
-  // auto y_train = dataset.y_train;
-  // auto X_test = dataset.X_test;
-  // auto y_test = dataset.y_test;
-
-  auto values = dummy_model(X_train, y_train);
-
-  Metrics metrics(y_test, values.first);
-
-  metrics.binary_classification_report();
-
-  std::cout << "Binary log-loss: " << metrics.binary_log_loss(values.second);
 
   return 0;
 }
