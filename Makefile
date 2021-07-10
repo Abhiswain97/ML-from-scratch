@@ -34,7 +34,7 @@ create_dll:
 	${PYTHON} util_scripts\cpp_utils.py ${COMP}
 
 link:
-	${CC} -L.\tests -lapp -o tests\main tests\main.cpp
+	${CC} -Ltests -lapp -o tests\main tests\main.cpp
 
 make_docs:
 	doxygen

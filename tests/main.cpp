@@ -37,8 +37,11 @@ int main(int argc, char const *argv[]) {
 
   std::cin >> n;
 
-  if (argc == 1) {
-    std::cout << "No arguments provided! Exiting!";
+  if (argc < 2) {
+    std::cout << "One or more arguments are missing!"
+              << "\n"
+              << "Making a graceful exit ......"
+              << "\n";
     exit(0);
   } else {
     std::string features_path = argv[1];

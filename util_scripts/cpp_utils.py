@@ -1,9 +1,10 @@
 import os
 import subprocess
 import sys
+from typing import List
 
 
-def find_all_cpp():
+def find_all_cpp() -> List[str]:
     cpp_files = []
     for dirpath, _, filenames in os.walk("Cpp"):
         for f in filenames:
@@ -14,7 +15,7 @@ def find_all_cpp():
     return cpp_files
 
 
-def create_dll(compiler):
+def create_dll(compiler) -> None:
     command = "{} -fPIC --shared -o tests\\app.dll".format(
         "clang++" if compiler == "clang" else "g++"
     )
