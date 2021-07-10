@@ -25,17 +25,16 @@ def create_dll(compiler):
 
 
 def format_all_cpp_hpp():
-    files = []
-    for dirpath, _, filenames in os.walk("Cpp"):
-        for f in filenames:
-            files.append(os.path.abspath(os.path.join(dirpath, f))) if (f.endswith(
-                ".cpp"
-            ) or f.endswith(".h")) else None
+
+    hpp_files = [os.path.join(os.path.abspath("Cpp\\include"), file)
+                 for file in os.listdir(os.path.abspath("Cpp\\include"))]
+    cpp_files = [os.path.join(os.path.abspath("Cpp\\src"), file)
+                 for file in os.listdir(os.path.abspath("Cpp\\src"))]
 
     command = "clang-format -i -style=google"
 
-    for file in files:
-        command += str(" " + file)
+    for f1, f2 in zip(cpp_files, hpp_files):
+        command += str(" " + f1 + " " + f2)
 
     subprocess.run(command, shell=True)
 
@@ -44,4 +43,4 @@ if __name__ == "__main__":
     cpp_files = find_all_cpp()
 
     format_all_cpp_hpp()
-    create_dll(compiler="clang++")
+    # create_dll(compiler="clang++")
