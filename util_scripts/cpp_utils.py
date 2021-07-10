@@ -5,17 +5,13 @@ import sys
 
 def find_all_cpp():
     cpp_files = []
-    for dirpath, _, filenames in os.walk("Cpp"):
-        for f in filenames:
-            cpp_files.append(os.path.abspath(os.path.join(dirpath, f))) if f.endswith(
-                ".cpp"
-            ) else None
-
+    for file in os.listdir("Cpp\\src"):
+        cpp_files.append(os.path.abspath(os.path.join("Cpp\\src", file)))
     return cpp_files
 
 
 def create_dll(compiler):
-    command = "{} -fPIC --shared -o tests\\app.dll".format(
+    command = "{} -fPIC --shared -o Cpp\\lib\\app.dll".format(
         "clang++" if compiler == "clang" else "g++"
     )
 

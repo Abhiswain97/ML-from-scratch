@@ -31,10 +31,10 @@ run_cpp:
 	${CC} ${FNAME}
 
 create_dll:
-	${PYTHON} util_scripts\cpp_utils.py ${COMP}
+	${PYTHON} util_scripts/cpp_utils.py ${COMP}
 
 link:
-	${CC} -L.\tests -lapp -o tests\main tests\main.cpp
+	${CC} -LCpp\lib -lapp -o Cpp\bin\main Cpp\examples\main.cpp
 
 make_docs:
 	doxygen
