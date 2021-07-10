@@ -1,7 +1,7 @@
-#include "../Cpp/Data/include/Splitter.h"
-#include "../Cpp/Metrics/include/Metrics.h"
-#include "../Cpp/NLP/feature_extraction/include/BOW.h"
-#include "../Cpp/NLP/feature_extraction/include/Tfidf.h"
+#include "../include/BOW.h"
+#include "../include/Metrics.h"
+#include "../include/Splitter.h"
+#include "../include/Tfidf.h"
 
 using pred_probs = std::pair<std::vector<int>, std::vector<double>>;
 
@@ -38,14 +38,15 @@ int main(int argc, char const *argv[]) {
   std::cin >> n;
 
   if (argc < 2) {
-    std::cout << "One or more arguments are missing!"
+    std::cout << "One or more arguments are missing"
               << "\n"
-              << "Making a graceful exit ......"
+              << "Making a graceful exit"
               << "\n";
     exit(0);
   } else {
     std::string features_path = argv[1];
     std::string labels_path = argv[2];
+
     std::ifstream file(features_path.c_str());
     std::ifstream file1(labels_path.c_str());
 
