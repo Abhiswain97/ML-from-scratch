@@ -12,7 +12,7 @@ def find_all_cpp() -> List[str]:
 
 
 def create_dll(compiler):
-    command = "{} -fPIC --shared -o Cpp\\examples\\app.dll".format(
+    command = "{} -fPIC --shared -o Cpp\\examples\\app.so".format(
         "clang++" if compiler == "clang" else "g++"
     )
 
@@ -43,4 +43,4 @@ if __name__ == "__main__":
     cpp_files = find_all_cpp()
 
     format_all_cpp_hpp()
-    # create_dll(compiler="clang++")
+    create_dll(compiler="clang++")

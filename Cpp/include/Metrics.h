@@ -1,3 +1,4 @@
+#pragma once
 #ifndef METRICS_H_
 #define METRICS_H_
 
@@ -69,7 +70,7 @@ class Metrics {
    * @param y_probs: vector of predicted probabilities
    * @return double
    */
-  double binary_log_loss(std::vector<double> &y_probs);
+  double binary_log_loss(std::vector<double>& y_probs);
 
   /**
    * @brief Calculate log loss for multi-class labels
@@ -79,7 +80,7 @@ class Metrics {
    * @param labels: vector of unique labels
    * @return double
    */
-  double multiclass_log_loss(std::vector<std::vector<double>> &y_probs);
+  double multiclass_log_loss(std::vector<std::vector<double>>& y_probs);
 };
 
 #endif

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _PREPROCESS_H__
 #define _PREPROCESS_H__
 
@@ -35,7 +36,7 @@ class Preprocess {
    *
    * @param labels
    */
-  Preprocess(std::vector<std::string> &labels) : labels(labels) {}
+  Preprocess(std::vector<std::string>& labels) : labels(labels) {}
 
   /**
    * @brief one hot encode labels or features

@@ -53,7 +53,7 @@ void Metrics::binary_classification_report() {
   std::cout << "Accuracy: " << this->accuracy << "\n";
 }
 
-double Metrics::binary_log_loss(std::vector<double> &y_probs) {
+double Metrics::binary_log_loss(std::vector<double>& y_probs) {
   double sum = 0.0;
   for (int i = 0; i < this->y_test.size(); i++)
     sum += (this->y_test[i] * log(y_probs[i])) +
@@ -61,42 +61,3 @@ double Metrics::binary_log_loss(std::vector<double> &y_probs) {
 
   return (-1) * (1 / double(this->y_test.size())) * sum;
 }
-
-// ------------------------------------------------- WIP
-// ------------------------------------------------------ //
-double Metrics::multiclass_log_loss(std::vector<std::vector<double>> &y_probs) {
-  std::vector<int> labels = this->unique_lables();
-  for (int i = 0; i < this->y_test.size(); i++) {
-    for (int j = 0; j < labels.size(); j++) {
-      if (labels[j] == y_test[i]) {
-      }
-    }
-  }
-}
-// ------------------------------------------------- WIP
-// ------------------------------------------------------ //
-
-// int main(int argc, char const *argv[])
-// {
-//     std::vector<int> y_test = {1,
-//                                0,
-//                                0,
-//                                1,
-//                                0,
-//                                1,
-//                                1};
-
-//     std::vector<int> y_pred = {0,
-//                                0,
-//                                1,
-//                                1,
-//                                0,
-//                                1,
-//                                1};
-
-//     Metrics metrics(y_test, y_pred);
-
-//     metrics.binary_classification_report();
-
-//     std::cout << "True positive rate: " << metrics.tpr << std::endl;
-// }

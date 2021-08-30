@@ -1,3 +1,4 @@
+#pragma once
 #ifndef SPLITTER_H_
 #define SPLITTER_H_
 
@@ -7,12 +8,7 @@
 #include <random>
 #include <vector>
 
-struct split_ret {
-  std::vector<std::vector<double>> X_train;
-  std::vector<int> y_train;
-  std::vector<std::vector<double>> X_test;
-  std::vector<int> y_test;
-};
+#include "../include/Utils.h"
 
 class Splitter {
  private:
@@ -20,7 +16,7 @@ class Splitter {
   std::vector<int> y;
 
  public:
-  Splitter(std::vector<std::vector<double>> &X, std::vector<int> &y)
+  Splitter(std::vector<std::vector<double>>& X, std::vector<int>& y)
       : X(X), y(y) {}
 
   /**
@@ -28,7 +24,7 @@ class Splitter {
    * @param test_pct: The percentage of test split
    * @return a struct containing X_train, y_train, X_test & y_test
    */
-  struct split_ret random_split(double &test_pct);
+  utils::dataset random_split(double& test_pct);
 };
 
 #endif
