@@ -7,6 +7,11 @@ from collections import Counter, OrderedDict
 
 
 class LSH:
+    """
+    Implementation of KNN using LSH (Locality Sensitive Hashing).
+    Uses cosine similarity to compute distance between vectors.
+    """
+
     def __init__(self, X: np.array, y, num_hps: int = 5, k: int = 11):
 
         self.set_seed()
