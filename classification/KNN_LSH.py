@@ -12,7 +12,7 @@ class LSH:
     Uses cosine similarity to compute distance between vectors.
     """
 
-    def __init__(self, X: np.array, y, num_hps: int = 5, k: int = 11):
+    def __init__(self, X: np.array, y, num_hps: int = 5, k: int = 11, nns=12):
 
         self.set_seed()
 
@@ -21,6 +21,7 @@ class LSH:
         self.hash_table: Dict = {}
         self.num_hps: int = num_hps
         self.k = k
+        self.nns = nns
 
         # Generate hyperplanes
         self.hps: np.array = np.array(
@@ -105,7 +106,7 @@ class LSH:
                         sorted(cos_sims.items(),
                                key=lambda x: x[1], reverse=True)
                     ).keys()
-                )[:12]
+                )[:self.nns]
             )
 
             preds.append(self._majority_voting(
