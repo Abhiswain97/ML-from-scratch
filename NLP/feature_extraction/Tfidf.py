@@ -40,8 +40,7 @@ class Tfidf:
 
     def _total_count(self, unique: bool = True) -> int:
         return (
-            len(self.unique_words()) if unique else sum(
-                self._word_frequency().values())
+            len(self.unique_words()) if unique else sum(self._word_frequency().values())
         )
 
     def compute_tf(self, word: str, document: List[str] = None) -> float:

@@ -8,18 +8,13 @@ import pprint
 class BagOfWords:
     def __init__(self, corpus: List[str], binary=False):
         self.corpus: List[str] = corpus
-        self.word_list: List[List[str]] = list(
-            map(lambda x: x.split(), self.corpus))
+        self.word_list: List[List[str]] = list(map(lambda x: x.split(), self.corpus))
         self.binary = binary
 
     def unique_words(self) -> List[str]:
-        return sorted(list(
-            Counter(
-                reduce(
-                    concat, self.word_list  # type: ignore
-                )
-            ).keys()
-        ))
+        return sorted(
+            list(Counter(reduce(concat, self.word_list)).keys())  # type: ignore
+        )
 
     def fit(self) -> List[List[int]]:
         unique_words = self.unique_words()

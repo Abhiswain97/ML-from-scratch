@@ -15,24 +15,23 @@ def clean_corpus(corpus) -> List[str]:
         sen_list: List[str] -> Cleaned corpus
     """
 
-    corpus = re.sub(re.compile('<.*?>'), '', corpus)
-    corpus = corpus.split('.')
+    corpus = re.sub(re.compile("<.*?>"), "", corpus)
+    corpus = corpus.split(".")
 
     sen_list = []
     for sentence in corpus:
-        sentence = sentence.translate(
-            str.maketrans("", "", string.punctuation))
+        sentence = sentence.translate(str.maketrans("", "", string.punctuation))
 
         sentence = sentence.translate(str.maketrans("", "", string.digits))
 
         sentence = sentence.replace(",", "")
 
-        sentence = sentence.replace("n\'t", " not")
+        sentence = sentence.replace("n't", " not")
         sentence = sentence.strip()
 
         sen_list.append(sentence)
 
-    sen_list = list(filter(lambda x: x != '', sen_list))
+    sen_list = list(filter(lambda x: x != "", sen_list))
 
     return sen_list
 

@@ -15,8 +15,7 @@ class Tfidf:
             map(lambda x: x.split(), self.corpus)  # type: ignore
         )
         # type: ignore  # https://github.com/python/mypy/issues/4673)
-        self.flattened_word_list: List[str] = reduce(
-            concat, self.word_list, [])
+        self.flattened_word_list: List[str] = reduce(concat, self.word_list, [])
 
     def _word_frequency(self, document: List[str] = None) -> Counter:
         """
@@ -41,8 +40,7 @@ class Tfidf:
 
     def _count(self, unique: bool = True) -> int:
         return (
-            len(self.unique_words()) if unique else sum(
-                self._word_frequency().values())
+            len(self.unique_words()) if unique else sum(self._word_frequency().values())
         )
 
     def compute_tf(self, word: str, document: List[str] = None) -> float:
@@ -75,8 +73,7 @@ class Tfidf:
         idf = self.compute_idf()
 
         tfidf = {}
-        tfidf_vec = [[0] * self._count(unique=True)
-                     for _ in range(len(self.word_list))]
+        tfidf_vec = [[0] * self._count(unique=True) for _ in range(len(self.word_list))]
 
         rows, columns, values = [], [], []
 
@@ -134,6 +131,6 @@ if __name__ == "__main__":
 
 #     print("=" * 50)
 
-    # tfidf_sklearn = TfidfVectorizer()
-    # X = tfidf_sklearn.fit_transform(corpus)
-    # print(X)
+# tfidf_sklearn = TfidfVectorizer()
+# X = tfidf_sklearn.fit_transform(corpus)
+# print(X)

@@ -66,7 +66,7 @@ class LSH:
 
     def _majority_voting(self, classes):
         """
-        Does majority voting among nearest neighbor 
+        Does majority voting among nearest neighbor
         predicted classes to get the final prediction
         """
         max_count = max(list(classes.values()))
@@ -102,13 +102,11 @@ class LSH:
             nearest_nn_idxs = np.array(
                 list(
                     OrderedDict(
-                        sorted(cos_sims.items(),
-                               key=lambda x: x[1], reverse=True)
+                        sorted(cos_sims.items(), key=lambda x: x[1], reverse=True)
                     ).keys()
-                )[:self.k]
+                )[: self.k]
             )
 
-            preds.append(self._majority_voting(
-                Counter(self.y[nearest_nn_idxs])))
+            preds.append(self._majority_voting(Counter(self.y[nearest_nn_idxs])))
 
         return preds

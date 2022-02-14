@@ -26,10 +26,14 @@ def create_dll(compiler):
 
 def format_all_cpp_hpp():
 
-    hpp_files = [os.path.join(os.path.abspath("Cpp\\include"), file)
-                 for file in os.listdir(os.path.abspath("Cpp\\include"))]
-    cpp_files = [os.path.join(os.path.abspath("Cpp\\src"), file)
-                 for file in os.listdir(os.path.abspath("Cpp\\src"))]
+    hpp_files = [
+        os.path.join(os.path.abspath("Cpp\\include"), file)
+        for file in os.listdir(os.path.abspath("Cpp\\include"))
+    ]
+    cpp_files = [
+        os.path.join(os.path.abspath("Cpp\\src"), file)
+        for file in os.listdir(os.path.abspath("Cpp\\src"))
+    ]
 
     command = "clang-format -i -style=google"
 
